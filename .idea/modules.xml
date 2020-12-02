@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DATA/DATA.iml" filepath="$PROJECT_DIR$/DATA/DATA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GUI/GUI.iml" filepath="$PROJECT_DIR$/GUI/GUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LOGIC/LOGIC.iml" filepath="$PROJECT_DIR$/LOGIC/LOGIC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TrainoShowcase.iml" filepath="$PROJECT_DIR$/TrainoShowcase.iml" />
+    </modules>
+  </component>
+</project>
