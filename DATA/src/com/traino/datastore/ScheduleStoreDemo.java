@@ -22,8 +22,17 @@ public class ScheduleStoreDemo implements ScheduleProvider {
         workout.addExercise(new Exercise("Complete To-Do's", 1, 1, "co"));
         workout.addExercise(new Exercise("Push-ups (50x)", 1, 1, "pu"));
 
-        schedule.add(workout);
 
+        Workout workout2 = new Workout("Example 2", Weekday.MONDAY, Status.ACTIVE);
+        workout2.setAllExercises(workout.getAllExercises());
+
+        Workout workout3 = new Workout("Example 2", Weekday.MONDAY, Status.ACTIVE);
+        workout3.setAllExercises(workout.getAllExercises());
+
+
+        schedule.add(workout);
+        schedule.add(workout2);
+        schedule.add(workout3);
     }
 
     @Override

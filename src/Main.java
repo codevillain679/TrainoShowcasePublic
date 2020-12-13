@@ -41,9 +41,6 @@ public class Main {
                     sporterViewDemo.showGoal(goal3);
                     Workout workout = sporterViewDemo.addWorkout();
                     sporterAdmin.addWorkout(goal3, workout);
-//                    for(Exercise exercise: sporterAdmin.getAllExercises(workout)){
-//                        sporterViewDemo.showExercise(exercise);
-//                    }
                     //display schedule
                     scheduleAdmin.addScheduleItem(workout);
                     try {
