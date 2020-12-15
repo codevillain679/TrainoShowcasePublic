@@ -69,9 +69,9 @@ public class Workout implements Actionable, Schedulable { // extends Actionable 
     public String getScheduleInfo() {
         String scheduleInfo = "";
         if(allExercises.size() == 0) return scheduleInfo;
-        scheduleInfo = activity + "\n";
+        scheduleInfo = activity +"\n";
         for(Exercise exercise : getAllExercises()){
-            scheduleInfo += "\t- " + exercise.getName() + "\n";
+            scheduleInfo += "\t- " + exercise.getName() + "\t"+exercise.getReps() + "reps," + exercise.getSets() + "sets\n";
         }
         return scheduleInfo;
     }

@@ -17,7 +17,7 @@ public class SporterView {
         System.out.println("----- TRAINO - Your Workout Scheduler -----");
     }
 
-    public void viewLogin(){
+    public LoginBean viewLogin(){
         System.out.print("Login\nUsername:\t[nkorporaal]\nPassword:\t[********]\n"); // For testing
 //        System.out.println("Login\nUsername:\t");
 //        String username = scanner.nextLine();
@@ -25,11 +25,12 @@ public class SporterView {
 //        String password = scanner.nextLine();
 //        LoginBean loginBean = new LoginBean(username, password);
         LoginBean loginBean = new LoginBean("nkorporaal", "traino213");
-        if(sporter.login(loginBean)){
-            System.out.println("Login succesful");
-        }else{
-            System.out.println("Login Failed. Username and password do not match");
-        }
+        return loginBean;
+//        if(sporter.login(loginBean)){
+//            System.out.println("Login succesful");
+//        }else{
+//            System.out.println("Login Failed. Username and password do not match");
+//        }
     }
 
     public void viewProfile() {

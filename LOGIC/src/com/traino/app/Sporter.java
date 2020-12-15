@@ -7,9 +7,6 @@ import java.util.List;
 
 public class Sporter {
 
-    private DataProvider<Sporter> sporterDataProvider;
-    private DataProvider<Goal> goalDataProvider;
-
     private int id;
     private String name;
     private String surname;
@@ -23,15 +20,7 @@ public class Sporter {
     private double bmi;
     private double fat;
     private String bloodtype;
-    private List<Goal> goal_list;
-
     private List<Goal> goals;
-
-    public Sporter(int id, String name, List<Goal> goals){
-        this.id = id;
-        this.name = name;
-        this.goals = goals;
-    }
 
     public List<Goal> getGoals(){
         return goals;
@@ -51,12 +40,7 @@ public class Sporter {
         this.bmi = bmi;
         this.fat = fat;
         this.bloodtype = bloodtype;
-        this.goal_list = new ArrayList<>();
-    }
-
-    public Sporter(DataProvider<Sporter> sporterDataProvider, DataProvider<Goal> goalDataProvider) {
-        this.sporterDataProvider = sporterDataProvider;
-        this.goalDataProvider = goalDataProvider;
+        this.goals = new ArrayList<>();
     }
 
     public int getId() {
@@ -160,57 +144,19 @@ public class Sporter {
     }
 
     public void setGoals(List<Goal> goals) {
-        this.goal_list = goals;
-    }
-
-    public boolean login(LoginBean loginBean){
-        String[] params = {loginBean.getUsername(), loginBean.getPassword()};
-        Sporter sporter = sporterDataProvider.get(params);
-        if(sporter != null) {
-            setId(sporter.getId());
-            setName(sporter.getName());
-            setSurname(sporter.getSurname());
-            setUsername(sporter.getUsername());
-            setPassword(sporter.getPassword());
-            setEmail(sporter.getEmail());
-            setPhone(sporter.getPhone());
-            setVerified(sporter.isVerified());
-            setWeight(sporter.getWeight());
-            setLength(sporter.getLength());
-            setBmi(sporter.getBmi());
-            setFat(sporter.getFat());
-            get_goal_list();
-            return true;
-        }else return false;
+        this.goals = goals;
     }
 
     //Use case 1
     //Doel invoeren
     public void addGoal(Goal goal) {
-        goal_list.add(goal);
+        goals.add(goal);
     }
 
     //Use case 2
     //Doel verwijderen
     public void removeGoal(Goal goal){
-
-    }
-
-    //Use case 3
-    //Workout toevoegen
-    public void addWorkout(Workout workout){
-
-    }
-
-
-    //Use case 4
-    //Workout verwijderen
-    public void removeWorkout(Workout workout){
-
-    }
-
-    public List<Goal> getGoals2() {
-        return goal_list;
+        goals.remove(goal);
     }
 
     @Override
@@ -224,16 +170,6 @@ public class Sporter {
 
     public String getName() {
         return this.name;
-    }
-
-    public void get_goal_list() {
-        String[] params = {getId()+""};
-        List<Goal> goal_list = goalDataProvider.getAll(params);
-        this.goal_list = goal_list;
-    }
-
-    public void update_goal_list(){
-
     }
 }
 

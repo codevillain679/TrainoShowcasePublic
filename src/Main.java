@@ -7,6 +7,7 @@ import com.traino.view.ScheduleViewDemo;
 import com.traino.view.SporterViewDemo;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -39,10 +40,17 @@ public class Main {
                 case 3: //Add workout
                     Goal goal3 = sporterViewDemo.selectGoal(sporterAdmin.getAllGoals());
                     sporterViewDemo.showGoal(goal3);
-                    Workout workout = sporterViewDemo.addWorkout();
-                    sporterAdmin.addWorkout(goal3, workout);
+                    List<Workout> suggestions = sporterAdmin.getSuggestions(goal3);
+                    Workout suggested = sporterViewDemo.showSuggestions(suggestions);
+                    if(suggested != null){
+                        sporterAdmin.addWorkout(goal3, suggested);
+                        scheduleAdmin.addScheduleItem(suggested);
+                    }else {
+                        Workout workout = sporterViewDemo.addWorkout();
+                        sporterAdmin.addWorkout(goal3, suggested);
+                        scheduleAdmin.addScheduleItem(workout);
+                    }
                     //display schedule
-                    scheduleAdmin.addScheduleItem(workout);
                     try {
                         scheduleViewDemo.showSchedule(scheduleAdmin.getAllScheduleItems());
                     } catch (IOException e) {

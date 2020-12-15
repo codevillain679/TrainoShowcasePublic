@@ -41,5 +41,4 @@ public class Goal implements Actionable {
     public void removeExercise(Exercise exercise) {
 
     }
-
 }

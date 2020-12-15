@@ -2,10 +2,7 @@ package com.traino.view;
 
 import com.traino.app.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class SporterViewDemo {
 
@@ -40,7 +37,7 @@ public class SporterViewDemo {
 //        System.out.print("Password:\t");
 //        String password = scanner.nextLine();
 //        LoginBean loginBean = new LoginBean(username, password);
-        LoginBean loginBean = new LoginBean("nkorporaal", "traino213");
+        LoginBean loginBean = new LoginBean("nk", "admin");
 
         return loginBean;
     }
@@ -172,5 +169,23 @@ public class SporterViewDemo {
         }else{
             return -1;
         }
+    }
+
+    public Workout showSuggestions(List<Workout> suggestions) {
+        if(suggestions.size() > 0){
+            System.out.println("--- Suggestions ---");
+            int n = 1;
+            for(Workout workout : suggestions){
+                System.out.println(n++ + "\t" + workout.getScheduleInfo());
+            }
+            System.out.println("Please select an option below\n1. Add exercise");
+            String input = scanner.nextLine();
+            if(parseInt(input) != -1) {
+                Workout workout_selected = suggestions.get(parseInt(input) - 1);
+                System.out.println("You selected: " + workout_selected);
+                return workout_selected;
+            }
+        }
+        return null;
     }
 }
