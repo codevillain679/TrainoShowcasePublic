@@ -21,7 +21,7 @@ public class SporterStore implements DataProvider<Sporter> {
         try {
             while (resultSet.next()) {
                 Sporter sporter = new Sporter((int) id, resultSet.getString("name"),  resultSet.getString("surname"),  resultSet.getString("username"),  resultSet.getString("password"),  resultSet.getString("email"),  resultSet.getString("phone"),
-                        resultSet.getBoolean("verified"),  resultSet.getDouble("weight"), resultSet.getDouble("length"), resultSet.getDouble("bmi"), resultSet.getDouble("fat"), resultSet.getString("bloodtype"));
+                        resultSet.getBoolean("verified"),  resultSet.getDouble("weight"), resultSet.getDouble("length"), resultSet.getDouble("fat"), resultSet.getString("bloodtype"));
                 dbcon.close();
                 this.sporter = sporter;
             }
@@ -67,7 +67,7 @@ public class SporterStore implements DataProvider<Sporter> {
         try {
             while (resultSet.next()) {
                 Sporter sporter = new Sporter(resultSet.getInt("id"), resultSet.getString("name"),  resultSet.getString("surname"),  resultSet.getString("username"),  resultSet.getString("password"),  resultSet.getString("email"),  resultSet.getString("phone"),
-                        resultSet.getBoolean("verified"),  resultSet.getDouble("weight"), resultSet.getDouble("length"), resultSet.getDouble("bmi"), resultSet.getDouble("fat"), resultSet.getString("bloodtype"));
+                        resultSet.getBoolean("verified"),  resultSet.getDouble("weight"), resultSet.getDouble("length"), resultSet.getDouble("fat"), resultSet.getString("bloodtype"));
                 this.sporter = sporter;
                 return true;
             }

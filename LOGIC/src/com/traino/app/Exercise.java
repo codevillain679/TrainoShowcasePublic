@@ -25,9 +25,8 @@ public class Exercise {
 
     @Override
     public String toString() {
-        return name + '\'' +
-                ", reps=" + reps +
-                ", sets=" + sets;
+
+        return "-\t" + name + " (" + reps + "x, " + sets + " sets)";
     }
 
     public int getReps() {

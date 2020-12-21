@@ -26,6 +26,9 @@ public class SporterViewDemo {
     public void showGoal(Goal goal){
 
         System.out.println(goal.getTitle());
+        for(Exercise exercise : goal.getAllExercises()){
+            showExercise(exercise);
+        }
     }
 
     public LoginBean showLogin(){
@@ -102,6 +105,7 @@ public class SporterViewDemo {
         Exercise exercise = addExercise();
         Weekday day = selectDay();
         Status status = Status.ACTIVE;
+
         Workout workout = new Workout(title, day, status);
         workout.addExercise(exercise);
 
@@ -136,22 +140,20 @@ public class SporterViewDemo {
     }
 
     public void showWorkout(Workout workout) {
-
         System.out.println(workout.getActivity());
         for(Exercise exercise: workout.getAllExercises()){
-            System.out.println("\t"+exercise.getName());
+            showExercise(exercise);
         }
     }
 
+    //is this necessary?
     public void showExercise(Exercise exercise) {
-
-        System.out.println("---- Exercise ---\n"+exercise.getName());
+        System.out.println(exercise.toString());
     }
 
     public Exercise editGoal(Goal goal) {
         System.out.println("--- Edit goal ---");
         showGoal(goal);
-        System.out.println(goal.getAllExercises().toString());
         System.out.println("Please select an option below\n1. Add exercise");
         String input = scanner.nextLine();
         if(parseInt(input) == 1) {
@@ -176,13 +178,17 @@ public class SporterViewDemo {
             System.out.println("--- Suggestions ---");
             int n = 1;
             for(Workout workout : suggestions){
-                System.out.println(n++ + "\t" + workout.getScheduleInfo());
+                System.out.println(n++ + ":\t" + workout.getActivity());
+                for(Exercise exercise : workout.getAllExercises()){
+                    System.out.println(exercise.toString());
+                }
             }
-            System.out.println("Please select an option below\n1. Add exercise");
             String input = scanner.nextLine();
             if(parseInt(input) != -1) {
                 Workout workout_selected = suggestions.get(parseInt(input) - 1);
                 System.out.println("You selected: " + workout_selected);
+                Weekday day = selectDay();
+                workout_selected.setDay(day);
                 return workout_selected;
             }
         }

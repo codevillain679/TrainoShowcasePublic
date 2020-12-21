@@ -19,8 +19,9 @@ public class SporterStoreDemo implements SporterProvider {
         workouts = new ArrayList<>();
 
         //example sporters in db
-        sporters.add(new Sporter(1, "Joey", "Scha", "joeys", "test", "js@email.com", "0612341234", false, 80.0, 183.0, 21.1, 11.0, "B-"));
-        sporters.add(new Sporter(2, "Mark", "Baij", "mbj", "test", "mb@email.com", "0612341235", false, 77.0, 181.0, 20.1, 9.0, "O-"));
+        sporters.add(new Sporter(1, "Niels", "Komodidjojo", "nkorporaal", "traino213", "nk@email.com", "0612341236", false, 70.0, 179.0, 9.0, "O-"));
+        sporters.add(new Sporter(4, "Joey", "Scha", "joeys", "test", "js@email.com", "0612341234", false, 80.0, 183.0, 11.0, "B-"));
+        sporters.add(new Sporter(6, "Mark", "Baij", "mbj", "test", "mb@email.com", "0612341235", false, 77.0, 181.0,9.0, "O-"));
 
         //example tag
         Tag tag = new Tag("train");
@@ -47,8 +48,8 @@ public class SporterStoreDemo implements SporterProvider {
 
     @Override
     public Sporter login(LoginBean loginBean) {
-        if(loginBean.getUsername().equals("nk") && loginBean.getPassword().equals("admin")){ //example login
-            this.sporter = new Sporter(1, "Niels", "Komodidjojo", "nk", "admin", "nk@email.com", "0612341236", false, 70.0, 179.0, 22.3, 9.0, "O-");
+        if(loginBean.getUsername().equals("nkorporaal") && loginBean.getPassword().equals("traino213")){ //example login
+            this.sporter = getAllSporters().get(0);
             this.sporter.setGoals(goals);
         }
         return sporter;
@@ -70,13 +71,27 @@ public class SporterStoreDemo implements SporterProvider {
     }
 
     @Override
+    public void addWorkout(Workout workout) {
+        this.workouts.add(workout);
+    }
+
+    @Override
+    public List<Workout> getAllWorkouts() {
+        return workouts;
+    }
+
+    @Override
     public List<Exercise> getAllExercises(Workout workout) {
         return workout.getAllExercises();
     }
 
     @Override
-    public void addGoalExercise(Goal goal, Exercise exercise) {
-        goal.addExercise(exercise);
+    public void addGoalExercise(Goal g, Exercise exercise) {
+        for(Goal goal : getAllGoals()){
+            if(goal.equals(g)){
+                goal.addExercise(exercise);
+            }
+        }
     }
 
     public void addWorkoutExercise(Workout workout, Exercise exercise){
@@ -101,6 +116,10 @@ public class SporterStoreDemo implements SporterProvider {
 
         Workout suggestion = new Workout(goal.getTitle() + " example workout", Weekday.MONDAY, Status.ACTIVE);
 
+        suggestion.addExercise(new Exercise("push-ups", 50, 4, "pu"));
+        suggestion.addExercise(new Exercise("sit-ups", 35, 4, "si"));
+        suggestion.addExercise(new Exercise("ankle-taps", 35, 4, "an"));
+
         suggestionList.add(suggestion);
 
         //get goal exercises
@@ -115,17 +134,7 @@ public class SporterStoreDemo implements SporterProvider {
     }
 
     @Override
-    public List<ScheduleItem> getSchedule(Sporter sporter) {
-        return null;
-    }
-
-    @Override
-    public void addScheduleItem(ScheduleItem scheduleItem) {
-
-    }
-
-    @Override
-    public void deleteScheduleItem(ScheduleItem scheduleItem) {
-
+    public Sporter getLoggedInSporter() {
+        return sporter;
     }
 }

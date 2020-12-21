@@ -43,11 +43,11 @@ public class Main {
                     List<Workout> suggestions = sporterAdmin.getSuggestions(goal3);
                     Workout suggested = sporterViewDemo.showSuggestions(suggestions);
                     if(suggested != null){
-                        sporterAdmin.addWorkout(goal3, suggested);
+                        //sporterAdmin.addWorkout(goal3, suggested);
                         scheduleAdmin.addScheduleItem(suggested);
                     }else {
                         Workout workout = sporterViewDemo.addWorkout();
-                        sporterAdmin.addWorkout(goal3, suggested);
+                        //sporterAdmin.addWorkout(goal3, suggested);
                         scheduleAdmin.addScheduleItem(workout);
                     }
                     //display schedule

@@ -81,13 +81,13 @@ public class ScheduleViewDemo {
         }
 
         // Set column widths.
-        worksheet.getColumn(0).setWidth(140, LengthUnit.PIXEL);
-        worksheet.getColumn(1).setWidth(140, LengthUnit.PIXEL);
-        worksheet.getColumn(2).setWidth(140, LengthUnit.PIXEL);
-        worksheet.getColumn(3).setWidth(140, LengthUnit.PIXEL);
-        worksheet.getColumn(4).setWidth(140, LengthUnit.PIXEL);
-        worksheet.getColumn(5).setWidth(140, LengthUnit.PIXEL);
-        worksheet.getColumn(6).setWidth(140, LengthUnit.PIXEL);
+        worksheet.getColumn(0).setWidth(200, LengthUnit.PIXEL);
+        worksheet.getColumn(1).setWidth(200, LengthUnit.PIXEL);
+        worksheet.getColumn(2).setWidth(200, LengthUnit.PIXEL);
+        worksheet.getColumn(3).setWidth(200, LengthUnit.PIXEL);
+        worksheet.getColumn(4).setWidth(200, LengthUnit.PIXEL);
+        worksheet.getColumn(5).setWidth(200, LengthUnit.PIXEL);
+        worksheet.getColumn(6).setWidth(200, LengthUnit.PIXEL);
 
         workbook.save("Schedule.xlsx");
 

@@ -4,6 +4,7 @@ import com.traino.app.*;
 import com.traino.app.interfaces.SporterProvider;
 
 import java.util.List;
+import java.util.Map;
 
 public class SporterAdmin {
     private SporterProvider provider;
@@ -41,14 +42,6 @@ public class SporterAdmin {
         provider.logout();
     }
 
-    public void addWorkout(Goal goal, Workout workout) {
-
-    }
-
-    public List<Workout> getAllWorkouts(Goal goal){
-        return null;
-    }
-
     public List<Exercise> getAllExercises(Workout workout) {
         return provider.getAllExercises(workout);
     }
@@ -63,5 +56,17 @@ public class SporterAdmin {
 
     public List<Workout> getSuggestions(Goal goal){
         return provider.getSuggestions(goal);
+    }
+
+    public Sporter getLoggedInSporter() {
+        return provider.getLoggedInSporter();
+    }
+
+    public List<Workout> getAllWorkouts() {
+        return provider.getAllWorkouts();
+    }
+
+    public void addWorkout(Workout workout) {
+        provider.addWorkout(workout);
     }
 }
