@@ -1,12 +1,14 @@
 package com.traino.app;
 
 public class Exercise {
+    private int id;
     private String name;
     private int reps;
     private int sets;
     private String symbol;
 
-    public Exercise( String name, int reps, int sets, String symbol) {
+    public Exercise(int id, String name, int reps, int sets, String symbol) {
+        this.id = id;
         this.name = name;
         this.reps = reps;
         this.sets = sets;

@@ -23,13 +23,13 @@ class SporterAdminTest {
     void setUp() {
         sporterAdmin = new SporterAdmin(new SporterStoreDemo());
         sporter = sporterAdmin.getAllSporters().get(0);
-        Exercise goalExercise = new Exercise("Implement unit tests", 30, 6, "ut");
+        Exercise goalExercise = new Exercise(0, "Implement unit tests", 30, 6, "ut");
         List<Exercise> allExercises = new ArrayList<>();
         allExercises.add(goalExercise);
         tag = new Tag("#test");
-        goal = new Goal("Test goal","Test goal description",tag, allExercises);
-        workout = new Workout("Test workout", Weekday.THURSDAY, Status.ACTIVE);
-        exercise = new Exercise("Implement unit tests", 3, 6, "ut");
+        goal = new Goal(0,"Test goal","Test goal description",tag, allExercises);
+        workout = new Workout(0,"Test workout", Weekday.THURSDAY, Status.ACTIVE);
+        exercise = new Exercise(0,"Implement unit tests", 3, 6, "ut");
         loginBean = new LoginBean("nkorporaal", "traino213");
     }
 

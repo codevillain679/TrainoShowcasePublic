@@ -73,7 +73,7 @@ public class SporterViewDemo {
         System.out.println("You have to set at least one exercise for this goal");
         Exercise exercise = addExercise();
 
-        Goal goal = new Goal(activity,description,goalTag, new ArrayList<>());
+        Goal goal = new Goal(0, activity,description,goalTag, new ArrayList<>());
 
         goal.addExercise(exercise);
 
@@ -93,7 +93,7 @@ public class SporterViewDemo {
             symbol = name.substring(0,2);
         }
         System.out.println("Abbrev.:\t"+symbol);
-        Exercise exercise = new Exercise(name, reps, sets, symbol);
+        Exercise exercise = new Exercise(0, name, reps, sets, symbol);
         return exercise;
     }
 
@@ -106,7 +106,7 @@ public class SporterViewDemo {
         Weekday day = selectDay();
         Status status = Status.ACTIVE;
 
-        Workout workout = new Workout(title, day, status);
+        Workout workout = new Workout(0, title, day, status);
         workout.addExercise(exercise);
 
         return workout;

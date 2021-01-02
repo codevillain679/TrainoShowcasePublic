@@ -17,16 +17,16 @@ public class ScheduleStoreDemo implements ScheduleProvider {
 
         this.schedule = new ArrayList<>();
 
-        Workout workout = new Workout("Example", Weekday.MONDAY, Status.ACTIVE);
-        workout.addExercise(new Exercise("Add comments", 1, 1, "ad"));
-        workout.addExercise(new Exercise("Complete To-Do's", 1, 1, "co"));
-        workout.addExercise(new Exercise("Push-ups (50x)", 1, 1, "pu"));
+        Workout workout = new Workout(0, "Example", Weekday.MONDAY, Status.ACTIVE);
+        workout.addExercise(new Exercise(1, "Add comments", 1, 1, "ad"));
+        workout.addExercise(new Exercise(2, "Complete To-Do's", 1, 1, "co"));
+        workout.addExercise(new Exercise(3, "Push-ups (50x)", 1, 1, "pu"));
 
 
-        Workout workout2 = new Workout("Example 2", Weekday.MONDAY, Status.ACTIVE);
+        Workout workout2 = new Workout(2, "Example 2", Weekday.MONDAY, Status.ACTIVE);
         workout2.setAllExercises(workout.getAllExercises());
 
-        Workout workout3 = new Workout("Example 2", Weekday.MONDAY, Status.ACTIVE);
+        Workout workout3 = new Workout(3, "Example 2", Weekday.MONDAY, Status.ACTIVE);
         workout3.setAllExercises(workout.getAllExercises());
 
 

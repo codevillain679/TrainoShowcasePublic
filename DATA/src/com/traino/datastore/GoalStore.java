@@ -1,17 +1,15 @@
 package com.traino.datastore;
 
 import com.traino.app.Tag;
-import com.traino.app.interfaces.DataProvider;
 import com.traino.app.Goal;
 
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoalStore implements DataProvider<Goal> {
-    @Override
+public class GoalStore{
+
     public Goal get(long id) {
         DBConnection dbcon = new DBConnection();
 
@@ -19,7 +17,7 @@ public class GoalStore implements DataProvider<Goal> {
 
         try {
             while (resultSet.next()) {
-                Goal goal = new Goal(resultSet.getString("title"),  resultSet.getString("description") , new Tag(resultSet.getString("tag")), new ArrayList<>());
+                Goal goal = new Goal(0, resultSet.getString("title"),  resultSet.getString("description") , new Tag(resultSet.getString("tag")), new ArrayList<>());
                 dbcon.close();
                 return goal;
             }
@@ -29,7 +27,7 @@ public class GoalStore implements DataProvider<Goal> {
         return null;
     }
 
-    @Override
+
     public List<Goal> getAll(String[] params) {
         //get goals from database;
         DBConnection dbcon = new DBConnection();
@@ -39,7 +37,7 @@ public class GoalStore implements DataProvider<Goal> {
         List<Goal> goal_list = new ArrayList<>();
         try {
             while (resultSet.next()) {
-                Goal goal = new Goal(resultSet.getString("title"), resultSet.getString("description"), new Tag(resultSet.getString("tag")), new ArrayList<>());
+                Goal goal = new Goal(0, resultSet.getString("title"), resultSet.getString("description"), new Tag(resultSet.getString("tag")), new ArrayList<>());
                 goal_list.add(goal);
             }
         } catch (SQLException trouble) {
@@ -47,25 +45,5 @@ public class GoalStore implements DataProvider<Goal> {
         }
         dbcon.close();
         return goal_list;
-    }
-
-    @Override
-    public void save(Goal goal) {
-
-    }
-
-    @Override
-    public void update(Goal goal, String[] params) {
-
-    }
-
-    @Override
-    public void delete(Goal goal) {
-
-    }
-
-    @Override
-    public Goal get(String[] params) {
-        return null;
     }
 }

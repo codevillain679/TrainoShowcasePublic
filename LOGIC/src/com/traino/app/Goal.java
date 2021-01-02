@@ -11,7 +11,8 @@ public class Goal implements Actionable {
     private String description;
     private List<Exercise> allExercises;
 
-    public Goal(String title, String description, Tag goalTag, List<Exercise> exerciseList) {
+    public Goal(int id, String title, String description, Tag goalTag, List<Exercise> exerciseList) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.tag = goalTag;
@@ -20,6 +21,10 @@ public class Goal implements Actionable {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override

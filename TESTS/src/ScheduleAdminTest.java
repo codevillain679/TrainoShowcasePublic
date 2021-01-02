@@ -27,7 +27,7 @@ class ScheduleAdminTest {
     @Test
     void addScheduleItem(){
         //Assign
-        Schedulable item = new Workout("Back and shoulders TABATA", Weekday.THURSDAY, Status.ACTIVE);
+        Schedulable item = new Workout(0, "Back and shoulders TABATA", Weekday.THURSDAY, Status.ACTIVE);
 
         //Act
         scheduleAdmin.addScheduleItem(item);

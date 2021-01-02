@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SporterView {
-    Sporter sporter;
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+
+    public SporterView(){
+        System.out.println("----- TRAINO - Your Workout Scheduler -----");
+    }
 
     public SporterView(Sporter sporter){
-        this.sporter = sporter;
+       // this.sporter = sporter;
         System.out.println("----- TRAINO - Your Workout Scheduler -----");
     }
 
@@ -24,30 +27,25 @@ public class SporterView {
 //        System.out.print("Password:\t");
 //        String password = scanner.nextLine();
 //        LoginBean loginBean = new LoginBean(username, password);
-        LoginBean loginBean = new LoginBean("nkorporaal", "traino213");
+        LoginBean loginBean = new LoginBean("dushi", "purr");
         return loginBean;
-//        if(sporter.login(loginBean)){
-//            System.out.println("Login succesful");
-//        }else{
-//            System.out.println("Login Failed. Username and password do not match");
-//        }
     }
 
-    public void viewProfile() {
+    public void viewProfile(Sporter sporter) {
         System.out.println("\n--- Profile ---" +
                 "\nName:\t" + sporter.getName() + " " + sporter.getSurname() + " ("+ sporter.getId() +")" +
-                "\nLength:\t"+sporter.getLength() +
-                "\tWeight:\t"+sporter.getWeight() +
-                "\tFat: "+sporter.getFat()+
-                "\nBMI:\t"+sporter.getBmi());
+                "\nLength:\t"+ sporter.getLength() +
+                "\tWeight:\t"+ sporter.getWeight() +
+                "\tFat: "+ sporter.getFat()+
+                "\nBMI:\t"+ sporter.getBmi());
     }
 
-    public void viewGoals(){
+    public void viewGoals(Sporter sporter){
         System.out.println("\n--- Goals ---" +
                 "\n" + sporter.getGoals());
     }
 
-    public void viewMenu(){
+    public void viewMenu(Sporter sporter){
         System.out.println("\n--- Menu options ---\n1. Add goal\n2. Log out");
         int n = scanner.nextInt();
         scanner.nextLine();
@@ -60,7 +58,7 @@ public class SporterView {
                 String tag = "#" + scanner.nextLine();
                 System.out.print("Description:\t");
                 String description = scanner.nextLine();
-                Goal goal = new Goal(title,description, new Tag(tag), new ArrayList<>());
+                Goal goal = new Goal(0,title,description, new Tag(tag), new ArrayList<>());
                 sporter.addGoal(goal);
                 System.out.print("Goal added:\t"+sporter.getGoals());
 

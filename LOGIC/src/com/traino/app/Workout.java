@@ -6,13 +6,14 @@ import com.traino.app.interfaces.Schedulable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Workout implements Actionable, Schedulable { // extends Actionable : holds data related to schedule only, WOKROUT contains practical information
+public class Workout implements Actionable, Schedulable { // extends Actionable : holds data related to schedule only, WORKOUT contains practical information
+    private int id;
     private String activity;
-    private List<Exercise> allExercises;
     private Weekday day;
     private Status status;
+    private List<Exercise> allExercises;
 
-    public Workout(String activity, Weekday day, Status status) {
+    public Workout(int id, String activity, Weekday day, Status status) {
         this.activity = activity;
         this.day = day;
         this.status = status;
@@ -21,7 +22,6 @@ public class Workout implements Actionable, Schedulable { // extends Actionable 
 
     @Override
     public String getActivity() {
-
         return this.activity;
     }
 
@@ -63,6 +63,10 @@ public class Workout implements Actionable, Schedulable { // extends Actionable 
     @Override
     public Status getStatus() {
         return status;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override

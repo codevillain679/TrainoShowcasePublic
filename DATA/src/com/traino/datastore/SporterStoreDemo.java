@@ -27,13 +27,13 @@ public class SporterStoreDemo implements SporterProvider {
         Tag tag = new Tag("train");
 
         //example goals in db
-        goals.add(new Goal("Pushups", "Perform record amount of pushups", tag, new ArrayList<>()));
-        goals.add(new Goal("Morning routines", "Daily 15min exercises", tag, new ArrayList<>()));
-        goals.add(new Goal( "Code cleanups", "Make sure the code complies to SOLID principles", tag, new ArrayList<>()));
-        goals.add(new Goal("Implementing...", "Classes, interfaces, and finally testing...", tag, new ArrayList<>()));
+        goals.add(new Goal(0, "Pushups", "Perform record amount of pushups", tag, new ArrayList<>()));
+        goals.add(new Goal(1, "Morning routines", "Daily 15min exercises", tag, new ArrayList<>()));
+        goals.add(new Goal(2, "Code cleanups", "Make sure the code complies to SOLID principles", tag, new ArrayList<>()));
+        goals.add(new Goal(3, "Implementing...", "Classes, interfaces, and finally testing...", tag, new ArrayList<>()));
 
         //example exercises
-        goals.get(2).addExercise(new Exercise("Adding comments!", 1, 1, "ad"));
+        goals.get(2).addExercise(new Exercise(4,"Adding comments!", 1, 1, "ad"));
     }
 
     @Override
@@ -114,11 +114,11 @@ public class SporterStoreDemo implements SporterProvider {
         //returns a workout with three exercises for this goal
         List<Workout> suggestionList = new ArrayList<>();
 
-        Workout suggestion = new Workout(goal.getTitle() + " example workout", Weekday.MONDAY, Status.ACTIVE);
+        Workout suggestion = new Workout(-1, goal.getTitle() + " example workout", Weekday.MONDAY, Status.ACTIVE);
 
-        suggestion.addExercise(new Exercise("push-ups", 50, 4, "pu"));
-        suggestion.addExercise(new Exercise("sit-ups", 35, 4, "si"));
-        suggestion.addExercise(new Exercise("ankle-taps", 35, 4, "an"));
+        suggestion.addExercise(new Exercise(0,"push-ups", 50, 4, "pu"));
+        suggestion.addExercise(new Exercise(1,"sit-ups", 35, 4, "si"));
+        suggestion.addExercise(new Exercise(2,"ankle-taps", 35, 4, "an"));
 
         suggestionList.add(suggestion);
 
@@ -126,7 +126,7 @@ public class SporterStoreDemo implements SporterProvider {
         List<Exercise> goalExercises = goal.getAllExercises();
 
         for(Exercise exercise: goalExercises){
-            Exercise suggestion_exercise = new Exercise(exercise.getName(), exercise.getReps()/2,exercise.getSets()/2,exercise.getSymbol());
+            Exercise suggestion_exercise = new Exercise(0, exercise.getName(), exercise.getReps()/2,exercise.getSets()/2,exercise.getSymbol());
             suggestion.addExercise(suggestion_exercise);
         }
         
