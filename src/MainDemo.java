@@ -1,10 +1,10 @@
 import com.traino.app.*;
 import com.traino.app.admin.ScheduleAdmin;
 import com.traino.app.admin.SporterAdmin;
-import com.traino.datastore.ScheduleStoreDemo;
-import com.traino.datastore.SporterStoreDemo;
-import com.traino.view.ScheduleViewDemo;
-import com.traino.view.SporterViewDemo;
+import com.traino.datastoredemo.ScheduleStoreDemo;
+import com.traino.datastoredemo.SporterStoreDemo;
+import com.traino.viewdemo.ScheduleViewDemo;
+import com.traino.viewdemo.SporterViewDemo;
 
 import java.io.IOException;
 import java.util.List;

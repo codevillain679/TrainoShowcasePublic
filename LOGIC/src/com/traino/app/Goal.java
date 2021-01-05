@@ -1,10 +1,8 @@
 package com.traino.app;
 
-import com.traino.app.interfaces.Actionable;
-
 import java.util.List;
 
-public class Goal implements Actionable {
+public class Goal {
     private int id;
     private String title;
     private Tag tag;
@@ -27,7 +25,6 @@ public class Goal implements Actionable {
         return id;
     }
 
-    @Override
     public List<Exercise> getAllExercises() {
         return allExercises;
     }
@@ -37,13 +34,30 @@ public class Goal implements Actionable {
         this.allExercises = allExercises;
     }
 
-    @Override
     public void addExercise(Exercise exercise) {
         this.allExercises.add(exercise);
     }
 
-    @Override
     public void removeExercise(Exercise exercise) {
 
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Title:\t" + title +
+                "\nTag:\t#" + tag.getLink() +
+                "\nDescription:\t" + description;
     }
 }

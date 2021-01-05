@@ -20,4 +20,6 @@ public interface SporterProvider {
     public void addTag(Workout workout, Tag tag);
     public List<Workout> getSuggestions(Goal goal);
     public Sporter getLoggedInSporter();
+    public List<Goal> getAllGoals(Sporter sporter);
+    public List<Exercise> getAllExercises(Goal goal);
 }

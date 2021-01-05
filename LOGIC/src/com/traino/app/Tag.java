@@ -5,4 +5,8 @@ public class Tag {
     public Tag(String link) {
         this.link = link;
     }
+
+    public String getLink() {
+        return link;
+    }
 }

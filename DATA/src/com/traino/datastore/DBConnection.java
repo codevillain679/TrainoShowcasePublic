@@ -8,52 +8,57 @@ public class DBConnection {
     private Statement statement;
     private ResultSet resultSet;
 
-    public DBConnection(){
+    public DBConnection() {
         con = createConnection();
     }
 
-    public static Connection createConnection()
-    {
+    public static Connection createConnection() {
         Connection con = null;
         String url = System.getenv("url");
         String username = System.getenv("username");
         String password = System.getenv("password");
-        try
-        {
-            try
-            {
+        try {
+            try {
                 Class.forName("com.mysql.cj.jdbc.Driver"); //loading mysql driver
-            }
-            catch (ClassNotFoundException e)
-            {
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
             con = DriverManager.getConnection(url, username, password); //attempting to connect to MySQL database
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return con;
     }
 
-    public ResultSet executeQuery(String sql){
-        try{
+    public ResultSet executeQuery(String sql) {
+        try {
             con = DBConnection.createConnection();
             statement = con.createStatement();
             resultSet = statement.executeQuery(sql);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return resultSet;
     }
 
-    public void close(){
+    public void close() {
         try {
             resultSet.close();
             statement.close();
         } catch (SQLException trouble) {
             trouble.printStackTrace();
         }
+    }
+
+    public int updateQuery(String sql) {
+        int result = 0;
+        try {
+            con = DBConnection.createConnection();
+            statement = con.createStatement();
+            result = statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

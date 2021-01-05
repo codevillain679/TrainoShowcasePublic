@@ -1,4 +1,4 @@
-package com.traino.view;
+package com.traino.viewdemo;
 
 import com.traino.app.*;
 

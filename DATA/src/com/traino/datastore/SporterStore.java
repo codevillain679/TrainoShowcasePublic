@@ -58,6 +58,9 @@ public class SporterStore implements SporterProvider {
             while (resultSet.next()) {
                 sporter = new Sporter(resultSet.getInt("id"), resultSet.getString("name"),  resultSet.getString("surname"),  resultSet.getString("username"),  resultSet.getString("password"),  resultSet.getString("email"),  resultSet.getString("phone"),
                         resultSet.getBoolean("verified"),  resultSet.getDouble("weight"), resultSet.getDouble("length"), resultSet.getDouble("fat"), resultSet.getString("bloodtype"));
+
+                sporter.setGoals(getAllGoals(sporter));
+
                 this.authSporter = sporter;
             }
         } catch (SQLException trouble) {
@@ -114,12 +117,55 @@ public class SporterStore implements SporterProvider {
 
     @Override
     public void addGoal(Goal goal) {
+        ResultSet resultSet = con.executeQuery("select max(id)+1 as goal_id from goals");
 
+        int id = 0;
+
+        //get id for next goal in db from database
+
+        try{
+            while(resultSet.next()){
+                id = resultSet.getInt("goal_id");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        String stmt = "INSERT INTO GOALS(SPORTER_ID, TITLE, TAG, DESCRIPTION) VALUES("+this.authSporter.getId()+",'"+goal.getTitle()+"','"+goal.getTag().getLink()+"','"+goal.getDescription()+"')";
+
+        con.updateQuery(stmt);
+
+        goal.setId(id);
+
+        for(Exercise exercise : goal.getAllExercises()){
+            addGoalExercise(goal, exercise);
+        }
     }
 
     @Override
     public void addWorkout(Workout workout) {
+        ResultSet resultSet = con.executeQuery("select max(id)+1 as workout_id from workouts");
 
+        int id = 0;
+
+        //get id for next workout in db from database
+        try{
+            while(resultSet.next()){
+                id = resultSet.getInt("workout_id");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        String stmt = "INSERT INTO WORKOUTS(ACTIVITY, DAY, STATUS) VALUES('"+workout.getActivity()+"', '"+workout.getDay().toString()+"', '"+workout.getStatus()+"')";
+
+        con.updateQuery(stmt);
+
+        workout.setId(id);
+
+        for(Exercise exercise : workout.getAllExercises()){
+            addWorkoutExercise(workout, exercise);
+        }
     }
 
     @Override
@@ -133,7 +179,7 @@ public class SporterStore implements SporterProvider {
                 Workout workout = new Workout(resultSet.getInt("id"), resultSet.getString("activity"), Weekday.valueOf(resultSet.getString("day")), Status.valueOf(resultSet.getString("status")));
                 allWorkouts.add(workout);
 
-                //TODO what to do /w goal_id
+                //TODO what to do /w goal_id (remove?)
 
             }
         }catch(SQLException e){
@@ -163,12 +209,16 @@ public class SporterStore implements SporterProvider {
 
     @Override
     public void addGoalExercise(Goal goal, Exercise exercise) {
+        String stmt = "INSERT INTO EXERCISES(NAME,REPS,SETS,SYMBOL,GOAL_ID) VALUES('"+exercise.getName()+"', "+exercise.getReps()+","+exercise.getSets()+",'"+exercise.getSymbol()+"', "+goal.getId()+")";
 
+        con.updateQuery(stmt);
     }
 
     @Override
     public void addWorkoutExercise(Workout workout, Exercise exercise) {
+        String stmt = "INSERT INTO EXERCISES(NAME,REPS,SETS,SYMBOL,WORKOUT_ID) VALUES('"+exercise.getName()+"', "+exercise.getReps()+","+exercise.getSets()+",'"+exercise.getSymbol()+"', "+workout.getId()+")";
 
+        con.updateQuery(stmt);
     }
 
     @Override
@@ -196,7 +246,20 @@ public class SporterStore implements SporterProvider {
 
     @Override
     public List<Workout> getSuggestions(Goal goal) {
-        return null;
+        List<Exercise> allGoalExercises = getAllExercises(goal);
+
+        List<Workout> suggestions = new ArrayList<>();
+
+        Workout workout = new Workout(0, "Suggestion", Weekday.THURSDAY, Status.ACTIVE);
+
+        for(Exercise exercise : allGoalExercises){
+            Exercise suggestExercise = new Exercise(0,exercise.getName(), exercise.getReps() / 2, exercise.getSets() / 2, exercise.getSymbol());
+            workout.addExercise(suggestExercise);
+        }
+
+        suggestions.add(workout);
+
+        return suggestions;
     }
 
     @Override
@@ -204,8 +267,52 @@ public class SporterStore implements SporterProvider {
         return authSporter;
     }
 
-    public void setAuthSporter(Sporter sporter){
-        this.authSporter = sporter;
+    @Override
+    public List<Goal> getAllGoals(Sporter sporter) {
+        List<Goal> allGoals = new ArrayList<>();
+
+        ResultSet resultSet = con.executeQuery("SELECT * FROM GOALS WHERE SPORTER_ID IN("+sporter.getId()+") ORDER BY ID");
+
+        try{
+            while(resultSet.next()){
+                //get goal from resultset
+                Goal goal = new Goal(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("description"), new Tag(resultSet.getString("tag")), new ArrayList<>());
+
+                //get goal exercises
+                List<Exercise> goalExercises = getAllExercises(goal);
+
+                //assign perceived goal exercise list to all exercises in goal
+                goal.setAllExercises(goalExercises);
+
+                // assign goal to list of all goals
+                allGoals.add(goal);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return allGoals;
     }
+
+    @Override
+    public List<Exercise> getAllExercises(Goal goal) {
+        List<Exercise> goalExercises = new ArrayList<>();
+
+        ResultSet resultSetExercises = con.executeQuery("SELECT * FROM EXERCISES WHERE GOAL_ID IN("+goal.getId()+") ORDER BY ID");
+
+        try{
+            while(resultSetExercises.next()){
+                //get exercises for goal
+                Exercise exercise = new Exercise(resultSetExercises.getInt("id"), resultSetExercises.getString("name"), resultSetExercises.getInt("reps"), resultSetExercises.getInt("sets"), resultSetExercises.getString("symbol"));
+
+                //add exercise to goal exercise list
+                goalExercises.add(exercise);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return goalExercises;
+    }
+
 
 }

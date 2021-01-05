@@ -1,4 +1,4 @@
-package com.traino.datastore;
+package com.traino.datastoredemo;
 
 import com.traino.app.Exercise;
 import com.traino.app.Status;

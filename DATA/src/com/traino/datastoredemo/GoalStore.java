@@ -1,7 +1,8 @@
-package com.traino.datastore;
+package com.traino.datastoredemo;
 
 import com.traino.app.Tag;
 import com.traino.app.Goal;
+import com.traino.datastore.DBConnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

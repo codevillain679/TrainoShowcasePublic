@@ -42,7 +42,6 @@ public class Sporter {
     }
 
     public int getId() {
-
         return id;
     }
 
@@ -88,7 +87,6 @@ public class Sporter {
 
 
     public List<Goal> getGoals(){
-
         return goals;
     }
 

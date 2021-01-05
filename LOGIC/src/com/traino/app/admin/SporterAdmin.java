@@ -69,4 +69,12 @@ public class SporterAdmin {
     public void addWorkout(Workout workout) {
         provider.addWorkout(workout);
     }
+
+    public List<Goal> getAllGoals(Sporter sporter){
+        return provider.getAllGoals(sporter);
+    }
+
+    public void updateGoal(Goal previous, Goal next) {
+       // provider.updateGoal(previous, next);
+    }
 }

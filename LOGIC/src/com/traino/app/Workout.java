@@ -1,12 +1,11 @@
 package com.traino.app;
 
-import com.traino.app.interfaces.Actionable;
 import com.traino.app.interfaces.Schedulable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Workout implements Actionable, Schedulable { // extends Actionable : holds data related to schedule only, WORKOUT contains practical information
+public class Workout implements Schedulable { // extends Actionable : holds data related to schedule only, WORKOUT contains practical information
     private int id;
     private String activity;
     private Weekday day;
@@ -25,27 +24,22 @@ public class Workout implements Actionable, Schedulable { // extends Actionable 
         return this.activity;
     }
 
-    @Override
     public List<Exercise> getAllExercises() {
         return this.allExercises;
     }
 
-    @Override
     public void setAllExercises(List<Exercise> allExercises) {
         this.allExercises = allExercises;
     }
 
-    @Override
     public void removeExercise(Exercise exercise) {
         this.allExercises.remove(exercise);
     }
 
-    @Override
     public void addExercise(Exercise exercise) {
         this.allExercises.add(exercise);
     }
 
-    @Override
     public void setDay(Weekday weekday) {
         this.day = weekday;
     }
@@ -78,5 +72,16 @@ public class Workout implements Actionable, Schedulable { // extends Actionable 
             scheduleInfo += exercise.toString() + "\n";
         }
         return scheduleInfo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Name:\t" + activity +
+                "\nDay:\t" + day +
+                "\nStatus:\t" + status;
     }
 }

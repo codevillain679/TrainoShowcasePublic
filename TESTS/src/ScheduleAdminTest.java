@@ -3,11 +3,8 @@ import com.traino.app.Weekday;
 import com.traino.app.Workout;
 import com.traino.app.admin.ScheduleAdmin;
 import com.traino.app.interfaces.Schedulable;
-import com.traino.app.interfaces.ScheduleProvider;
-import com.traino.datastore.ScheduleStoreDemo;
+import com.traino.datastoredemo.ScheduleStoreDemo;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

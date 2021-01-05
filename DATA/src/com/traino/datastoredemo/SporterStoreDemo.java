@@ -1,4 +1,4 @@
-package com.traino.datastore;
+package com.traino.datastoredemo;
 
 import com.traino.app.*;
 import com.traino.app.interfaces.SporterProvider;
@@ -136,5 +136,15 @@ public class SporterStoreDemo implements SporterProvider {
     @Override
     public Sporter getLoggedInSporter() {
         return sporter;
+    }
+
+    @Override
+    public List<Goal> getAllGoals(Sporter sporter) {
+        return null;
+    }
+
+    @Override
+    public List<Exercise> getAllExercises(Goal goal) {
+        return null;
     }
 }
