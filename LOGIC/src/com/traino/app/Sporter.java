@@ -106,5 +106,17 @@ public class Sporter {
     public String getPassword() {
         return password;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getBloodtype() {
+        return bloodtype;
+    }
 }
 

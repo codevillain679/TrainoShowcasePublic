@@ -18,12 +18,33 @@ public class Main {
 
         Sporter sporter = null;
 
-        while(sporterAdmin.getLoggedInSporter() == null){
-            sporter = sporterAdmin.login(sporterView.viewLogin());
-        }
+        int menuLoginOption = sporterView.selectLoginOption();
 
-        //Show profile
-        sporterView.viewProfile(sporter);
+        switch(menuLoginOption){
+            case 1: //REGISTER
+                while(sporterAdmin.getLoggedInSporter() == null){
+                    Sporter newSporter = sporterView.viewRegister();
+
+                    //Upload new user to database
+                    sporterAdmin.addSporter(newSporter);
+
+                    //Login
+                    newSporter = sporterAdmin.login(new LoginBean(newSporter.getUsername(), newSporter.getPassword()));
+
+                    //Show profile
+                    sporterView.viewProfile(newSporter);
+                }
+                break;
+            case 2: //LOGIN
+                while(sporterAdmin.getLoggedInSporter() == null){
+                    sporter = sporterAdmin.login(sporterView.viewLogin());
+                }
+
+                //Show profile
+                sporterView.viewProfile(sporter);
+                break;
+            default: break;
+        }
 
         int menuOption = sporterView.selectMenuOption();
 

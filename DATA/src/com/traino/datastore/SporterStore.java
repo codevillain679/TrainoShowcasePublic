@@ -42,9 +42,13 @@ public class SporterStore implements SporterProvider {
 
     @Override
     public void addSporter(Sporter sporter) {
-        String stmt = "INSERT INTO SPORTERS(USERNAME, PASSWORD) VALUES("+sporter.getUsername()+", "+sporter.getPassword()+")";
+        String stmt = "INSERT INTO SPORTERS(USERNAME, PASSWORD, NAME, SURNAME, EMAIL, PHONE, VERIFIED, WEIGHT, LENGTH, BMI, FAT, BLOODTYPE) VALUES('"+sporter.getUsername()+"','"+sporter.getPassword()+"','"+sporter.getName()+"','"+sporter.getSurname()+"','"+sporter.getEmail()+"','"+sporter.getPhone()+"',"+false+","+sporter.getWeight()+","+sporter.getLength()+","+sporter.calculateBmi()+","+sporter.getFat()+",'"+sporter.getBloodtype()+"')";
 
-        con.executeQuery(stmt);
+        try{
+            con.updateQuery(stmt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public Sporter login(LoginBean loginBean) {

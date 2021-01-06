@@ -2,10 +2,7 @@ package com.traino.view;
 
 import com.traino.app.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class SporterView {
     private Scanner scanner = new Scanner(System.in);
@@ -217,5 +214,60 @@ public class SporterView {
         }
 
         System.out.println();
+    }
+
+    public int selectLoginOption() {
+        System.out.println("1.\tRegister\n2.\tLogin");
+        String input = scanner.nextLine();
+
+        int num = parseInt(input);
+
+        return num;
+    }
+
+    public Sporter viewRegister() {
+        Sporter sporter = null;
+
+        //public Sporter(int id, String name, String surname, String username, String password, String email, String phone, boolean verified, double weight, double length, double fat, String bloodtype) {
+
+        System.out.print("--- Register ---\nUsername:\t");
+        String username = scanner.nextLine();
+        System.out.print("Password:\t");
+        String password = scanner.nextLine();
+        System.out.print("Name:\t\t");
+        String name = scanner.nextLine();
+        System.out.print("Surname:\t");
+        String surname = scanner.nextLine();
+        System.out.print("Email:\t\t");
+        String email = scanner.nextLine();
+        boolean verified = false; //verification
+        System.out.print("Phone:\t\t");
+        String phone = scanner.nextLine();
+        System.out.print("Weight:\t\t");
+        String str_weight = scanner.nextLine();
+        double weight = Double.parseDouble(str_weight.replace(",", ".")); //replace comma with .
+        System.out.print("Length:\t\t");
+        String str_length = scanner.nextLine();
+        double length = Double.parseDouble(str_length.replace(",", "."));
+        System.out.print("Fat percentage:\t");
+        String str_fat = scanner.nextLine();
+        double fat = Double.parseDouble(str_fat.replace(",", "."));
+        System.out.println("Bloodtype:\t");
+
+        String[] types = new String[]{"A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"};
+
+        for(int n = 1; n <= types.length; n++){
+            System.out.println(n + ".\t" + types[n-1]);
+        }
+
+        System.out.println("Enter choice:\t");
+
+        int selection = scanner.nextInt(); scanner.nextLine();
+
+        String bloodtype = types[selection-1];
+
+        sporter = new Sporter(0, name,surname, username, password, email, phone, verified, weight, length, fat, bloodtype);
+
+        return sporter;
     }
 }
