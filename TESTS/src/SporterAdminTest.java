@@ -134,7 +134,7 @@ class SporterAdminTest {
     void getAllExercises() {
         //Assign
         workout.addExercise(exercise);
-        sporterAdmin.addWorkout(workout);
+        sporterAdmin.addWorkout(workout, null);
 
         //Act
         List<Exercise> allExercises = sporterAdmin.getAllExercises(workout);
@@ -158,7 +158,7 @@ class SporterAdminTest {
     @Test
     void addWorkoutExercise() {
         //Assign
-        sporterAdmin.addWorkout(workout);
+        sporterAdmin.addWorkout(workout,null);
 
         //Act
         sporterAdmin.addWorkoutExercise(workout, exercise);
@@ -171,7 +171,7 @@ class SporterAdminTest {
     void getSuggestions() {
         //Assign
         sporterAdmin.addGoal(goal);
-        sporterAdmin.addWorkout(workout);
+        sporterAdmin.addWorkout(workout, null);
         sporterAdmin.addWorkoutExercise(workout, exercise);
 
         //Act

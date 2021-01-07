@@ -18,7 +18,7 @@ public class SporterView {
 //        System.out.print("Password:\t");
 //        String password = scanner.nextLine();
 //        LoginBean loginBean = new LoginBean(username, password);
-        LoginBean loginBean = new LoginBean("dushi", "purr");
+        LoginBean loginBean = new LoginBean("nkorporaal", "traino213");
         return loginBean;
     }
 
@@ -28,7 +28,8 @@ public class SporterView {
                 "\nLength:\t"+ sporter.getLength() +
                 "\tWeight:\t"+ sporter.getWeight() +
                 "\tFat: "+ sporter.getFat()+
-                "\nBMI:\t"+ sporter.getBmi());
+                "\nBMI:\t"+ sporter.getBmi()+
+                "\tBloodtype:\t"+ sporter.getBloodtype());
 
         for(Goal goal : sporter.getGoals()){
             showGoal(goal);
@@ -36,7 +37,7 @@ public class SporterView {
     }
 
     public int selectMenuOption(){
-        System.out.println("\n--- Menu options ---\n1.\tAdd goal\n2.\tEdit goal\n3.\tAdd Workout\n4.\tView Schedule in Excel\n5.\tGet suggestion for workouts\n9. Logout");
+        System.out.println("\n--- Menu options ---\n1.\tAdd goal\n2.\tEdit goal\n3.\tAdd Workout\n4.\tView Schedule\n5.\tGet suggestion for workouts\n6.\tEdit Profile\n9.\tLogout\n");
         String input = scanner.nextLine();
         boolean isNumeric = input.chars().allMatch( Character::isDigit );
         if(isNumeric) {
@@ -49,15 +50,7 @@ public class SporterView {
         }
     }
 
-    public Goal viewGoals(Sporter sporter){
-        System.out.println("\n--- Goals ---" +
-                "\n" + sporter.getGoals());
-        return null;
-    }
-
-
-    public Goal selectGoal(Sporter sporter) {
-        List<Goal> allGoals = sporter.getGoals();
+    public Goal selectGoal(List<Goal> allGoals) {
         System.out.println("--- Select goal ---");
         int n = 1;
         for(Goal goal: allGoals){
@@ -68,10 +61,6 @@ public class SporterView {
         int selection = scanner.nextInt(); scanner.nextLine();
         Goal selected = allGoals.get(selection - 1);
         return selected;
-    }
-
-    public void editProfile() {
-
     }
 
     public Goal addGoal(){
@@ -217,7 +206,7 @@ public class SporterView {
     }
 
     public int selectLoginOption() {
-        System.out.println("1.\tRegister\n2.\tLogin");
+        System.out.println("1.\tRegister\n2.\tLogin\n0.\tExit application");
         String input = scanner.nextLine();
 
         int num = parseInt(input);
@@ -227,9 +216,6 @@ public class SporterView {
 
     public Sporter viewRegister() {
         Sporter sporter = null;
-
-        //public Sporter(int id, String name, String surname, String username, String password, String email, String phone, boolean verified, double weight, double length, double fat, String bloodtype) {
-
         System.out.print("--- Register ---\nUsername:\t");
         String username = scanner.nextLine();
         System.out.print("Password:\t");
@@ -267,6 +253,90 @@ public class SporterView {
         String bloodtype = types[selection-1];
 
         sporter = new Sporter(0, name,surname, username, password, email, phone, verified, weight, length, fat, bloodtype);
+
+        return sporter;
+    }
+
+    public Sporter editProfile(Sporter sporter){
+        System.out.println("--- Edit Profile ---\nWhat would you like to edit?\n1.\tName\n2.\tSurname\n3.\tUsername\n4.\tPassword\n5.\tEmail\n6.\tPhone\n7.\tWeight\n8.\tLength\n9.\tFat percentage\n10.\tBloodtype");
+
+        int editOption = scanner.nextInt(); scanner.nextLine();
+        switch(editOption){
+            case 1:
+                //Name
+                System.out.print("Name:\t\t");
+                String name = scanner.nextLine();
+                sporter.setName(name);
+                break;
+            case 2:
+                //Surname
+                System.out.print("Surname:\t");
+                String surname = scanner.nextLine();
+                sporter.setSurname(surname);
+                break;
+            case 3:
+                //username
+                System.out.println("Username:\t");
+                String username = scanner.nextLine();
+                sporter.setUsername(username);
+                break;
+            case 4:
+                //Password
+                System.out.print("Password:\t");
+                String password = scanner.nextLine();
+                sporter.setPassword(password);
+                break;
+            case 5:
+                //Email
+                System.out.print("Email:\t\t");
+                String email = scanner.nextLine();
+                sporter.setEmail(email);
+                break;
+            case 6:
+                //phone
+                System.out.print("Phone:\t\t");
+                String phone = scanner.nextLine();
+                sporter.setPhone(phone);
+                break;
+            case 7:
+                //Weight
+                System.out.print("Weight:\t\t");
+                String str_weight = scanner.nextLine();
+                double weight = Double.parseDouble(str_weight.replace(",", "."));
+                sporter.setWeight(weight);
+                break;
+            case 8:
+                //Length
+                System.out.print("Length:\t\t");
+                String str_length = scanner.nextLine();
+                double length = Double.parseDouble(str_length.replace(",", "."));
+                sporter.setLength(length);
+                break;
+            case 9:
+                //Fat percentage
+                System.out.print("Fat percentage:\t");
+                String str_fat = scanner.nextLine();
+                double fat = Double.parseDouble(str_fat.replace(",", "."));
+                sporter.setFat(fat);
+                break;
+            case 10:
+                //Bloodtype
+                String[] types = new String[]{"A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"};
+
+                for(int n = 1; n <= types.length; n++){
+                    System.out.println(n + ".\t" + types[n-1]);
+                }
+
+                System.out.println("Enter choice:\t");
+
+                int selection = scanner.nextInt(); scanner.nextLine();
+
+                String bloodtype = types[selection-1];
+
+                sporter.setBloodtype(bloodtype);
+                break;
+            default: break;
+        }
 
         return sporter;
     }

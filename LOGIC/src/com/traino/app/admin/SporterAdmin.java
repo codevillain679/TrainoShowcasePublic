@@ -1,8 +1,10 @@
 package com.traino.app.admin;
 
 import com.traino.app.*;
+import com.traino.app.interfaces.Schedulable;
 import com.traino.app.interfaces.SporterProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,10 @@ public class SporterAdmin {
     public List<Sporter> getAllSporters() {
 
         return provider.getAllSporters();
+    }
+
+    public void updateSporter(Sporter sporter){
+        provider.updateSporter(sporter);
     }
 
     public void addSporter(Sporter sporter){
@@ -66,15 +72,25 @@ public class SporterAdmin {
         return provider.getAllWorkouts();
     }
 
-    public void addWorkout(Workout workout) {
-        provider.addWorkout(workout);
+    public void addWorkout(Workout workout, Goal goal) {
+        provider.addWorkout(workout, goal);
     }
 
     public List<Goal> getAllGoals(Sporter sporter){
         return provider.getAllGoals(sporter);
     }
 
-    public void updateGoal(Goal previous, Goal next) {
-       // provider.updateGoal(previous, next);
+    public List<Schedulable> getAllSchedulables(Sporter sporter) {
+
+
+        List<Schedulable> schedule = new ArrayList<>();
+
+        for(Workout workout : provider.getAllWorkouts(sporter)) {
+            schedule.add(workout);
+        }
+
+
+
+        return schedule;
     }
 }

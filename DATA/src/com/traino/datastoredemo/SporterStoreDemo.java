@@ -1,6 +1,7 @@
 package com.traino.datastoredemo;
 
 import com.traino.app.*;
+import com.traino.app.interfaces.Schedulable;
 import com.traino.app.interfaces.SporterProvider;
 
 import java.util.ArrayList;
@@ -47,6 +48,11 @@ public class SporterStoreDemo implements SporterProvider {
     }
 
     @Override
+    public void updateSporter(Sporter sporter) {
+
+    }
+
+    @Override
     public Sporter login(LoginBean loginBean) {
         if(loginBean.getUsername().equals("nkorporaal") && loginBean.getPassword().equals("traino213")){ //example login
             this.sporter = getAllSporters().get(0);
@@ -71,13 +77,18 @@ public class SporterStoreDemo implements SporterProvider {
     }
 
     @Override
-    public void addWorkout(Workout workout) {
+    public void addWorkout(Workout workout, Goal goal) {
         this.workouts.add(workout);
     }
 
     @Override
     public List<Workout> getAllWorkouts() {
         return workouts;
+    }
+
+    @Override
+    public List<Workout> getAllWorkouts(Sporter sporter) {
+        return null;
     }
 
     @Override
@@ -145,6 +156,11 @@ public class SporterStoreDemo implements SporterProvider {
 
     @Override
     public List<Exercise> getAllExercises(Goal goal) {
+        return null;
+    }
+
+    @Override
+    public List<Schedulable> getAllWorkouts(Goal goal) {
         return null;
     }
 }

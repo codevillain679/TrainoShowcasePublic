@@ -13,6 +13,7 @@ public class Workout implements Schedulable { // extends Actionable : holds data
     private List<Exercise> allExercises;
 
     public Workout(int id, String activity, Weekday day, Status status) {
+        this.id = id;
         this.activity = activity;
         this.day = day;
         this.status = status;
@@ -65,9 +66,11 @@ public class Workout implements Schedulable { // extends Actionable : holds data
 
     @Override
     public String getScheduleInfo() {
-        String scheduleInfo = "";
-        if(allExercises.size() == 0) return scheduleInfo;
-        scheduleInfo = activity +"\n";
+        String scheduleInfo = activity + " ("+ day.toString() + ")\n";
+
+        if(getAllExercises().size() == 0){
+            scheduleInfo += "\t- No Exercises Added!";
+        }
         for(Exercise exercise : getAllExercises()){
             scheduleInfo += exercise.toString() + "\n";
         }

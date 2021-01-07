@@ -1,5 +1,8 @@
 package com.traino.app;
 
+import com.traino.app.interfaces.Schedulable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Goal {
@@ -8,6 +11,7 @@ public class Goal {
     private Tag tag;
     private String description;
     private List<Exercise> allExercises;
+    private List<Schedulable> scheduleItems;
 
     public Goal(int id, String title, String description, Tag goalTag, List<Exercise> exerciseList) {
         this.id = id;
@@ -15,6 +19,7 @@ public class Goal {
         this.description = description;
         this.tag = goalTag;
         this.allExercises = exerciseList;
+        this.scheduleItems = new ArrayList<>();
     }
 
     public String getTitle() {
@@ -59,5 +64,21 @@ public class Goal {
         return "Title:\t" + title +
                 "\nTag:\t#" + tag.getLink() +
                 "\nDescription:\t" + description;
+    }
+
+    public void addScheduleItem(Schedulable item){
+        scheduleItems.add(item);
+    }
+
+    public void removeScheduleItem(Schedulable item){
+        scheduleItems.remove(item);
+    }
+
+    public List<Schedulable> getScheduleItems() {
+        return scheduleItems;
+    }
+
+    public void setScheduleItems(List<Schedulable> scheduleItems) {
+        this.scheduleItems = scheduleItems;
     }
 }

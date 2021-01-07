@@ -1,6 +1,7 @@
 package com.traino.datastore;
 
 import com.traino.app.*;
+import com.traino.app.interfaces.Schedulable;
 import com.traino.app.interfaces.SporterProvider;
 
 import java.sql.ResultSet;
@@ -43,6 +44,17 @@ public class SporterStore implements SporterProvider {
     @Override
     public void addSporter(Sporter sporter) {
         String stmt = "INSERT INTO SPORTERS(USERNAME, PASSWORD, NAME, SURNAME, EMAIL, PHONE, VERIFIED, WEIGHT, LENGTH, BMI, FAT, BLOODTYPE) VALUES('"+sporter.getUsername()+"','"+sporter.getPassword()+"','"+sporter.getName()+"','"+sporter.getSurname()+"','"+sporter.getEmail()+"','"+sporter.getPhone()+"',"+false+","+sporter.getWeight()+","+sporter.getLength()+","+sporter.calculateBmi()+","+sporter.getFat()+",'"+sporter.getBloodtype()+"')";
+
+        try{
+            con.updateQuery(stmt);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateSporter(Sporter sporter){
+        String stmt = "UPDATE SPORTERS SET USERNAME='"+sporter.getUsername()+"',PASSWORD='"+sporter.getPassword()+"',NAME='"+sporter.getName()+"', SURNAME='"+sporter.getSurname()+"', EMAIL='"+sporter.getEmail()+"', PHONE='"+sporter.getPhone()+"', VERIFIED="+sporter.isVerified()+", WEIGHT="+sporter.getWeight()+", LENGTH="+sporter.getLength()+", BMI="+sporter.getBmi()+", FAT="+sporter.getFat()+", BLOODTYPE='"+sporter.getBloodtype()+"' WHERE ID IN("+sporter.getId()+")";
 
         try{
             con.updateQuery(stmt);
@@ -147,7 +159,7 @@ public class SporterStore implements SporterProvider {
     }
 
     @Override
-    public void addWorkout(Workout workout) {
+    public void addWorkout(Workout workout, Goal goal) {
         ResultSet resultSet = con.executeQuery("select max(id)+1 as workout_id from workouts");
 
         int id = 0;
@@ -161,7 +173,7 @@ public class SporterStore implements SporterProvider {
             e.printStackTrace();
         }
 
-        String stmt = "INSERT INTO WORKOUTS(ACTIVITY, DAY, STATUS) VALUES('"+workout.getActivity()+"', '"+workout.getDay().toString()+"', '"+workout.getStatus()+"')";
+        String stmt = "INSERT INTO WORKOUTS(ACTIVITY, DAY, STATUS, GOAL_ID) VALUES('"+workout.getActivity()+"', '"+workout.getDay().toString()+"', '"+workout.getStatus()+"',"+goal.getId()+")";
 
         con.updateQuery(stmt);
 
@@ -182,6 +194,29 @@ public class SporterStore implements SporterProvider {
             while(resultSet.next()){
                 Workout workout = new Workout(resultSet.getInt("id"), resultSet.getString("activity"), Weekday.valueOf(resultSet.getString("day")), Status.valueOf(resultSet.getString("status")));
                 allWorkouts.add(workout);
+
+                //TODO what to do /w goal_id (remove?)
+
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return allWorkouts;
+    }
+
+    @Override
+    public List<Workout> getAllWorkouts(Sporter sporter) {
+        List<Workout> allWorkouts = new ArrayList<>();
+
+        ResultSet resultSet = con.executeQuery("SELECT * FROM WORKOUTS WHERE SPORTER_ID IN("+sporter.getId()+") ORDER BY ID");
+
+        try{
+            while(resultSet.next()){
+                Workout workout = new Workout(resultSet.getInt("id"), resultSet.getString("activity"), Weekday.valueOf(resultSet.getString("day")), Status.valueOf(resultSet.getString("status")));
+                allWorkouts.add(workout);
+
+                workout.setAllExercises(getAllExercises(workout));
 
                 //TODO what to do /w goal_id (remove?)
 
@@ -288,6 +323,12 @@ public class SporterStore implements SporterProvider {
                 //assign perceived goal exercise list to all exercises in goal
                 goal.setAllExercises(goalExercises);
 
+                //get goal schedule items
+                List<Schedulable> scheduleItems = getAllWorkouts(goal);
+
+                //assign schedule items to goal
+                goal.setScheduleItems(scheduleItems);
+
                 // assign goal to list of all goals
                 allGoals.add(goal);
             }
@@ -318,5 +359,30 @@ public class SporterStore implements SporterProvider {
         return goalExercises;
     }
 
+    @Override
+    public List<Schedulable> getAllWorkouts(Goal goal){
 
+        List<Schedulable> allWorkouts = new ArrayList<>();
+
+        String stmt = "SELECT * FROM WORKOUTS WHERE GOAL_ID IN("+goal.getId()+")";
+
+        ResultSet resultSet = con.executeQuery(stmt);
+
+        try{
+            while(resultSet.next()){
+                Workout workout = new Workout(resultSet.getInt("id"), resultSet.getString("activity"), Weekday.valueOf(resultSet.getString("day")), Status.valueOf(resultSet.getString("status")));
+
+                List<Exercise> workout_exercises = getAllExercises(workout);
+
+                workout.setAllExercises(workout_exercises);
+
+                allWorkouts.add(workout);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return allWorkouts;
+
+    }
 }

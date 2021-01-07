@@ -38,7 +38,7 @@ public class Sporter {
     }
 
     public double calculateBmi(){
-        return weight / (length/100 * length/100);
+        return Math.round(weight / (length/100 * length/100) * 100.00) /100.00;
     }
 
     public int getId() {
@@ -79,13 +79,6 @@ public class Sporter {
         this.goals = goals;
     }
 
-    //Use case 1
-    //Doel invoeren
-    public void addGoal(Goal goal) {
-        goals.add(goal);
-    }
-
-
     public List<Goal> getGoals(){
         return goals;
     }
@@ -115,8 +108,54 @@ public class Sporter {
         return phone;
     }
 
+    public boolean isVerified() {
+        return verified;
+    }
+
     public String getBloodtype() {
         return bloodtype;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+        this.bmi = calculateBmi(); //calculate new bmi
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+        this.bmi = calculateBmi(); //calculate new bmi
+    }
+
+    public void setFat(double fat) {
+        this.fat = fat;
+    }
+
+    public void setBloodtype(String bloodtype) {
+        this.bloodtype = bloodtype;
     }
 }
 
