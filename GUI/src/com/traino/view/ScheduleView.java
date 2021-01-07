@@ -19,6 +19,7 @@ public class ScheduleView {
     }
 
     public void showSchedule(List<Schedulable> schedule){
+        System.out.println("--- Schedule ---");
         for(Schedulable item : schedule){
             System.out.println(item.getScheduleInfo());
         }

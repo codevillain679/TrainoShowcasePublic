@@ -31,13 +31,17 @@ public class SporterView {
                 "\nBMI:\t"+ sporter.getBmi()+
                 "\tBloodtype:\t"+ sporter.getBloodtype());
 
+        System.out.println("\n--- Goals ---");
         for(Goal goal : sporter.getGoals()){
             showGoal(goal);
         }
     }
 
     public int selectMenuOption(){
-        System.out.println("\n--- Menu options ---\n1.\tAdd goal\n2.\tEdit goal\n3.\tAdd Workout\n4.\tView Schedule\n5.\tGet suggestion for workouts\n6.\tEdit Profile\n9.\tLogout\n");
+       // System.out.println("\n--- Menu options ---\n1.\tAdd goal\n2.\tEdit goal\n3.\tAdd Workout\n4.\tView Schedule\n5.\tGet suggestion for workouts\n6.\tEdit Profile\n9.\tLogout\n");
+
+        System.out.println("--- Menu ---\n1.\tEdit Profile\n2.\tAdd goal\n3.\tEdit goal\n4.\tView Schedule\n5.\tLogout");
+
         String input = scanner.nextLine();
         boolean isNumeric = input.chars().allMatch( Character::isDigit );
         if(isNumeric) {
@@ -206,7 +210,7 @@ public class SporterView {
     }
 
     public int selectLoginOption() {
-        System.out.println("1.\tRegister\n2.\tLogin\n0.\tExit application");
+        System.out.println("1.\tRegister\n2.\tLogin\n3.\tExit application");
         String input = scanner.nextLine();
 
         int num = parseInt(input);

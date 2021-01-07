@@ -9,24 +9,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    private static SporterStore dataStore;
+    private static SporterAdmin sporterAdmin;
+    private static SporterView sporterView;
+    private static ScheduleView scheduleView;
+    private static Sporter sporter;
+
+
     public static void main(String[] args) {
-        SporterStore dataStore = new SporterStore();
+        dataStore = new SporterStore();
 
-        SporterAdmin sporterAdmin = new SporterAdmin(dataStore);
+        sporterAdmin = new SporterAdmin(dataStore);
 
-        SporterView sporterView = new SporterView();
-        ScheduleView scheduleView = new ScheduleView();
+        sporterView = new SporterView();
+        scheduleView = new ScheduleView();
 
-        Sporter sporter = null;
+        sporter = null;
 
+        showMainMenu();
+
+        showProfileMenu();
+    }
+
+    private static void showMainMenu(){
         int menuLoginOption = sporterView.selectLoginOption();
 
         switch (menuLoginOption) {
-            case 0:
-                //EXIT APPLICATION
-                System.out.println("Application closed");
-                System.exit(0);
-                break;
             case 1: //REGISTER
                 while (sporterAdmin.getLoggedInSporter() == null) {
                     Sporter newSporter = sporterView.viewRegister();
@@ -49,12 +57,15 @@ public class Main {
                 //Show profile
                 sporterView.viewProfile(sporter);
                 break;
-            default:
-                System.out.println("Input invalid");
+            case 3:
+                //EXIT APPLICATION
+                System.out.println("Application closed");
                 System.exit(0);
                 break;
         }
+    }
 
+    private static void showProfileMenu(){
         int menuOption = sporterView.selectMenuOption();
 
         while (menuOption != -1) {
@@ -62,14 +73,21 @@ public class Main {
                 case 0:
                     //under development
                     break;
-                case 1: //ADD GOAL
-                    // Create goal
+                case 1:
+                    //EDIT PROFILE
+                    Sporter sporter_edit = sporterView.editProfile(sporter);
+                    sporterAdmin.updateSporter(sporter_edit);
+                    sporterView.viewProfile(sporter_edit);
+
+                    break;
+                case 2:
+                    //ADD GOAL
                     Goal goal = sporterView.addGoal();
 
                     // Add goal to database
                     sporterAdmin.addGoal(goal);
                     break;
-                case 2: //EDIT GOAL
+                case 3: //EDIT GOAL
                     //Retrieve goals from database
                     List<Goal> allGoals = sporterAdmin.getAllGoals(sporter);
 
@@ -97,10 +115,7 @@ public class Main {
 
                     //TODO: implement required methods for 'edit' in datastore
                     break;
-                case 3: //ADD WORKOUT
-
-                    break;
-                case 4: //VIEW SCHEDULE (in excel)
+                case 4: //VIEW SCHEDULE
                     List<Schedulable> schedule = new ArrayList<>();
 
                     List<Goal> allGoals4 = sporterAdmin.getAllGoals(sporter);
@@ -122,7 +137,7 @@ public class Main {
                             Goal selectedGoal = sporterView.selectGoal(allGoals2);
 
                             // Create workout + add exercise(s)
-                            Workout workout = sporterView.addWorkout();
+                            Workout workout = scheduleView.addWorkout();
 
                             // add scheduleitem to selected goal
                             selectedGoal.addScheduleItem(workout);
@@ -137,11 +152,24 @@ public class Main {
                             break;
                         case 3:
                             //back to profile
+                            sporterView.viewProfile(sporter);
                             break;
                     }
 
                     break;
-                case 5: //GET SUGGESTIONS
+                case 5: //LOGOUT
+                    //Ask for confirm
+                    boolean confirm = sporterView.viewLogout();
+
+                    //Clear sporter session
+                    if (confirm) {
+                        sporterAdmin.logout();
+                        showMainMenu();
+                    } else {
+                        sporterView.viewProfile(sporter);
+                    }
+                    break;
+                case 9: //GET SUGGESTIONS
                     List<Goal> allGoals3 = sporterAdmin.getAllGoals(sporter);
 
                     Goal selectedGoal2 = sporterView.selectGoal(allGoals3);
@@ -153,27 +181,12 @@ public class Main {
                     //  sporterAdmin.addWorkout(selectedWorkout);
                     break;
                 case 6:
-                    //EDIT PROFILE
-                    Sporter sporter_edit = sporterView.editProfile(sporter);
-                    sporterAdmin.updateSporter(sporter_edit);
-                    sporterView.viewProfile(sporter_edit);
                     break;
                 case 7:
                     break;
                 case 8:
                     break;
-                case 9: //LOGOUT
-                    //Ask for confirm
-                    boolean confirm = sporterView.viewLogout();
 
-                    //Clear sporter session
-                    if (confirm) {
-                        sporterAdmin.logout();
-                        System.exit(0); //Close application
-                    } else {
-                        sporterView.viewProfile(sporter);
-                    }
-                    break;
             }
             menuOption = sporterView.selectMenuOption();
         }
