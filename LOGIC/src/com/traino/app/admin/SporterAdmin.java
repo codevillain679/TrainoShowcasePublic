@@ -80,17 +80,4 @@ public class SporterAdmin {
         return provider.getAllGoals(sporter);
     }
 
-    public List<Schedulable> getAllSchedulables(Sporter sporter) {
-
-
-        List<Schedulable> schedule = new ArrayList<>();
-
-        for(Workout workout : provider.getAllWorkouts(sporter)) {
-            schedule.add(workout);
-        }
-
-
-
-        return schedule;
-    }
 }

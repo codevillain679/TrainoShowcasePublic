@@ -129,29 +129,36 @@ public class Main {
                     int scheduleOption = scheduleView.viewScheduleOptions();
 
                     switch(scheduleOption){
-                        case 1:
-                            //add workout
+                        case 1: //ADD WORKOUT
                             //Retrieve goals from database
                             List<Goal> allGoals2 = sporterAdmin.getAllGoals(sporter);
 
                             Goal selectedGoal = sporterView.selectGoal(allGoals2);
 
+                            //SHOW SUGGESTION workouts for this goal
+
+                            List<Workout> suggestions = sporterAdmin.getSuggestions(selectedGoal);
+
+
+
                             // Create workout + add exercise(s)
-                            Workout workout = scheduleView.addWorkout();
+                            // Workout workout = scheduleView.addWorkout();
 
                             // add scheduleitem to selected goal
-                            selectedGoal.addScheduleItem(workout);
+                           // selectedGoal.addScheduleItem(workout);
 
                             // Add workout to database
-                            sporterAdmin.addWorkout(workout, selectedGoal);
+                            //sporterAdmin.addWorkout(workout, selectedGoal);
 
                             scheduleView.showSchedule(schedule);
                             break;
                         case 2:
                             //edit workout
+
+
                             break;
                         case 3:
-                            //back to profile
+                            //Show Profile
                             sporterView.viewProfile(sporter);
                             break;
                     }
@@ -179,14 +186,6 @@ public class Main {
                     Workout selectedWorkout = sporterView.selectWorkout(suggestions);
 
                     //  sporterAdmin.addWorkout(selectedWorkout);
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
-
             }
             menuOption = sporterView.selectMenuOption();
         }
