@@ -29,5 +29,5 @@ public interface SporterProvider {
     public Sporter getLoggedInSporter();
     public List<Exercise> getAllExercises(Goal goal);
 
-    public List<Schedulable> getAllWorkouts(Goal goal);
+    public List<Workout> getAllWorkouts(Goal goal);
 }

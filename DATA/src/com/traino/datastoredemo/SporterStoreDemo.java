@@ -160,7 +160,7 @@ public class SporterStoreDemo implements SporterProvider {
     }
 
     @Override
-    public List<Schedulable> getAllWorkouts(Goal goal) {
+    public List<Workout> getAllWorkouts(Goal goal) {
         return null;
     }
 }

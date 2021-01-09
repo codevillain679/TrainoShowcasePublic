@@ -87,4 +87,8 @@ public class Workout implements Schedulable { // extends Actionable : holds data
                 "\nDay:\t" + day +
                 "\nStatus:\t" + status;
     }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
 }

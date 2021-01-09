@@ -286,7 +286,7 @@ public class SporterStore implements SporterProvider {
     @Override
     public List<Workout> getSuggestions(Goal goal) {
         List<Exercise> allGoalExercises = getAllExercises(goal); //goal exercises (this is the number of required exercises for this goal)
-        List<Schedulable> allGoalWorkouts = getAllWorkouts(goal); //actual workouts for given goal
+        List<Workout> allGoalWorkouts = getAllWorkouts(goal); //actual workouts for given goal
 
         for(Exercise exercise : allGoalExercises){
 
@@ -331,10 +331,15 @@ public class SporterStore implements SporterProvider {
                 goal.setAllExercises(goalExercises);
 
                 //get goal schedule items
-                List<Schedulable> scheduleItems = getAllWorkouts(goal);
+                List<Workout> scheduleItems = getAllWorkouts(goal);
+
 
                 //assign schedule items to goal
-                goal.setScheduleItems(scheduleItems);
+                for(Workout w : scheduleItems){
+                    Schedulable s = w;
+                    goal.addScheduleItem(s);
+                }
+
 
                 // assign goal to list of all goals
                 allGoals.add(goal);
@@ -367,9 +372,9 @@ public class SporterStore implements SporterProvider {
     }
 
     @Override
-    public List<Schedulable> getAllWorkouts(Goal goal){
+    public List<Workout> getAllWorkouts(Goal goal){
 
-        List<Schedulable> allWorkouts = new ArrayList<>();
+        List<Workout> allWorkouts = new ArrayList<>();
 
         String stmt = "SELECT * FROM WORKOUTS WHERE GOAL_ID IN("+goal.getId()+")";
 

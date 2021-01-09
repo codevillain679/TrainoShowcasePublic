@@ -130,6 +130,25 @@ public class Main {
 
                     switch(scheduleOption){
                         case 1: //ADD WORKOUT
+
+                            //--- show suggestion
+                            List<Goal> allGoals3 = sporterAdmin.getAllGoals(sporter);
+
+                            Goal selectedGoal2 = sporterView.selectGoal(allGoals3);
+
+                            List<Workout> suggestions = sporterAdmin.getSuggestions(selectedGoal2);
+
+//                    Workout selectedWorkout = sporterView.selectWorkout(suggestions);
+//
+//                    //  sporterAdmin.addWorkout(selectedWorkout);
+
+                            Schedulable suggestion = sporterAdmin.createSuggestion(selectedGoal2);
+
+                            System.out.println(suggestion.getScheduleInfo());
+
+                            // --- end
+
+
                             //Retrieve goals from database
                             List<Goal> allGoals2 = sporterAdmin.getAllGoals(sporter);
 
@@ -137,7 +156,7 @@ public class Main {
 
                             //SHOW SUGGESTION workouts for this goal
 
-                            List<Workout> suggestions = sporterAdmin.getSuggestions(selectedGoal);
+                            //List<Workout> suggestions = sporterAdmin.getSuggestions(selectedGoal);
 
 
 
@@ -183,9 +202,13 @@ public class Main {
 
                     List<Workout> suggestions = sporterAdmin.getSuggestions(selectedGoal2);
 
-                    Workout selectedWorkout = sporterView.selectWorkout(suggestions);
+//                    Workout selectedWorkout = sporterView.selectWorkout(suggestions);
+//
+//                    //  sporterAdmin.addWorkout(selectedWorkout);
 
-                    //  sporterAdmin.addWorkout(selectedWorkout);
+                    Schedulable suggestion = sporterAdmin.createSuggestion(selectedGoal2);
+
+                    System.out.println(suggestion.getScheduleInfo());
             }
             menuOption = sporterView.selectMenuOption();
         }

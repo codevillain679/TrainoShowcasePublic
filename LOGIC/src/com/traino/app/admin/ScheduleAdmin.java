@@ -1,5 +1,6 @@
 package com.traino.app.admin;
 
+import com.traino.app.Goal;
 import com.traino.app.Workout;
 import com.traino.app.interfaces.Schedulable;
 import com.traino.app.interfaces.ScheduleProvider;
