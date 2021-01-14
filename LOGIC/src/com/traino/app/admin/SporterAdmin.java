@@ -57,11 +57,7 @@ public class SporterAdmin {
     public void addWorkoutExercise(Workout workout, Exercise exercise) {
         provider.addWorkoutExercise(workout, exercise);
     }
-
-  //  public List<Workout> getSuggestions(Goal goal) {
-       // return provider.getSuggestions(goal);
-    //}
-
+    
     public Sporter getLoggedInSporter() {
         return provider.getLoggedInSporter();
     }
@@ -95,13 +91,17 @@ public class SporterAdmin {
         for(Exercise exercise : allGoalExercises) {
             int sets = exercise.getSets();
             int reps = exercise.getReps();
-            System.out.println(exercise.toString());
+            //System.out.println(exercise.toString());
             //calculate how many exercises relate to this goal
             for(Exercise exercise1 : allWorkoutExercises){
                 if(exercise.getSymbol().equals(exercise1.getSymbol())){
                     //same symbol
-                    sets -= exercise1.getSets();
-                    reps -= exercise1.getReps();
+                    if(reps == exercise1.getReps()){
+                        sets -= exercise1.getSets(); //calculate sets
+                    }
+                    else if(reps > exercise1.getReps() && sets == 0){
+                        reps -= exercise1.getReps();
+                    }
                 }
             }
 

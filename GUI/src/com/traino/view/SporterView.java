@@ -137,9 +137,11 @@ public class SporterView {
 
         System.out.println("You have to add at least one exercise");
 
-        if(suggestion.getAllExercises().size() > 0){
+        if(suggestion.getAllExercises().size() >= 1){
             System.out.println("--- Suggestion ---");
-            System.out.println(suggestion.getScheduleInfo());
+            for(Exercise exercise : suggestion.getAllExercises()){
+                System.out.println("-\t" + exercise);
+            }
             System.out.println("Add suggestion to this workout? (Y/N)\t");
             String input = scanner.nextLine();
 
