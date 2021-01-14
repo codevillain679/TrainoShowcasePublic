@@ -1,12 +1,14 @@
 package com.traino.app.admin;
 
 import com.traino.app.*;
+import com.traino.app.interfaces.Schedulable;
 import com.traino.app.interfaces.SporterProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SporterAdmin {
+public class SporterAdmin extends ScheduleItem{
+
     private SporterProvider provider;
 
     public SporterAdmin(SporterProvider provider) {
@@ -57,7 +59,7 @@ public class SporterAdmin {
     public void addWorkoutExercise(Workout workout, Exercise exercise) {
         provider.addWorkoutExercise(workout, exercise);
     }
-    
+
     public Sporter getLoggedInSporter() {
         return provider.getLoggedInSporter();
     }
@@ -74,7 +76,7 @@ public class SporterAdmin {
         return provider.getAllGoals(sporter);
     }
 
-    public Workout createSuggestion(Goal goal) {
+    public Schedulable createSuggestion(Goal goal) {
 
         Workout suggestion = new Workout(0, null, null, null); //this workout is used to temporarily store the exercises and doesn't have activity, day or status information
 

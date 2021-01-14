@@ -1,9 +1,11 @@
 package com.traino.app;
 
+import com.traino.app.interfaces.Schedulable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sporter {
+public class Sporter extends ScheduleItem {
 
     private int id;
     private String name;
@@ -37,9 +39,7 @@ public class Sporter {
         this.goals = new ArrayList<>();
     }
 
-    public double calculateBmi(){
-        return Math.round(weight / (length/100 * length/100) * 100.00) /100.00;
-    }
+    //getters are needed for uploading sporter information to db
 
     public int getId() {
         return id;
@@ -50,46 +50,7 @@ public class Sporter {
     }
 
     public String getSurname() {
-
         return surname;
-    }
-
-    public double getWeight() {
-
-        return weight;
-    }
-
-    public double getLength() {
-
-        return length;
-    }
-
-    public double getBmi() {
-
-        return bmi;
-    }
-
-    public double getFat() {
-
-        return fat;
-    }
-
-    public void setGoals(List<Goal> goals) {
-
-        this.goals = goals;
-    }
-
-    public List<Goal> getGoals(){
-        return goals;
-    }
-
-    @Override
-    public String toString() {
-        return "models.Sporter{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                '}';
     }
 
     public String getUsername() {
@@ -112,32 +73,48 @@ public class Sporter {
         return verified;
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public double getBmi() {
+        return bmi;
+    }
+
+    public double getFat() {
+        return fat;
+    }
+
     public String getBloodtype() {
         return bloodtype;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public double calculateBmi() {
+        return Math.round(weight / (length / 100 * length / 100) * 100.00) / 100.00;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public String getProfileInfo() {
+        String s = ("\n--- Profile ---" +
+                "\nName:\t" + name + " " + surname + " (" + id + ")" +
+                "\nLength:\t" + length +
+                "\tWeight:\t" + weight +
+                "\tFat: " + fat +
+                "\nBMI:\t" + bmi +
+                "\tBloodtype:\t" + bloodtype +
+                "\tEmail:\t" + email);
+        return s;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setGoals(List<Goal> goals) {
+        this.goals = goals;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public List<Goal> getGoals() {
+        return goals;
     }
 
     public void setWeight(double weight) {
@@ -156,6 +133,43 @@ public class Sporter {
 
     public void setBloodtype(String bloodtype) {
         this.bloodtype = bloodtype;
+    }
+
+    @Override
+    protected Schedulable createSuggestion(Goal g) {
+        Weekday day;
+        //based on weight
+        if (bmi < 20.0) { //superfit sporter should train on thursdays
+            day = Weekday.THURSDAY;
+        }
+        if (weight < 25.0) { //regular sporter should train on friday
+            day = Weekday.FRIDAY;
+        } else { //fat sporter should train in his weekend. No free days for this one
+            day = Weekday.SATURDAY;
+        }
+
+        Workout item = new Workout(0, "Workout for" + g.getTitle(), day, Status.ACTIVE);
+
+        item.setAllExercises(g.getAllExercises()); //assign exercises
+
+        return item;
+    }
+
+    public void edit(String name, String surname, String username, String password, String email, String phone){
+        if(name != null) this.name = name;
+        if(surname != null) this.surname = surname;
+        if(username != null) this.username = username;
+        if(password != null) {
+            this.password = password;
+            verify();
+        }
+
+        if(email != null) this.email = email;
+        if(phone != null) this.phone = phone;
+    }
+
+    public void verify(){
+        this.verified = true;
     }
 }
 

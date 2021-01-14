@@ -1,6 +1,7 @@
 package com.traino.app.admin;
 
 import com.traino.app.Goal;
+import com.traino.app.ScheduleItem;
 import com.traino.app.Workout;
 import com.traino.app.interfaces.Schedulable;
 import com.traino.app.interfaces.ScheduleProvider;
@@ -18,11 +19,10 @@ public class ScheduleAdmin {
 
     public void addScheduleItem(Schedulable item){
         provider.addSchedulable(item);
-        //Schedulable test = new Workout()
     }
 
     public List<Schedulable> getAllScheduleItems() {
-
         return provider.getAllSchedulables();
     }
+
 }

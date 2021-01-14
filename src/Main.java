@@ -136,7 +136,7 @@ public class Main {
 
                             Goal selectedGoal2 = sporterView.selectGoal(allGoals3);
 
-                            Workout suggestion = sporterAdmin.createSuggestion(selectedGoal2);
+                            Workout suggestion = (Workout) sporterAdmin.createSuggestion(selectedGoal2);
 
                             Workout workout = sporterView.addWorkout(suggestion);
 

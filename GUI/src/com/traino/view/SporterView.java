@@ -24,13 +24,7 @@ public class SporterView {
     }
 
     public void viewProfile(Sporter sporter) {
-        System.out.println("\n--- Profile ---" +
-                "\nName:\t" + sporter.getName() + " " + sporter.getSurname() + " ("+ sporter.getId() +")" +
-                "\nLength:\t"+ sporter.getLength() +
-                "\tWeight:\t"+ sporter.getWeight() +
-                "\tFat: "+ sporter.getFat()+
-                "\nBMI:\t"+ sporter.getBmi()+
-                "\tBloodtype:\t"+ sporter.getBloodtype());
+        System.out.println(sporter.getProfileInfo());
 
         System.out.println("\n--- Goals ---");
         for(Goal goal : sporter.getGoals()){
@@ -76,6 +70,16 @@ public class SporterView {
         System.out.print("Tag:\t#");
         String link = scanner.nextLine();
         Tag goalTag = new Tag(link);
+
+        while(activity == "" || description == "" || link == ""){
+            System.out.print("Goal cannot be empty. Please fill in all the fields\nActivity:\t");
+            activity = scanner.nextLine();
+            System.out.print("Description:\t");
+            description = scanner.nextLine();
+            System.out.print("Tag:\t#");
+            link = scanner.nextLine();
+            goalTag = new Tag(link);
+        }
 
         System.out.println("You have to set at least one exercise for this goal");
 
@@ -282,43 +286,44 @@ public class SporterView {
     public Sporter editProfile(Sporter sporter){
         System.out.println("--- Edit Profile ---\nWhat would you like to edit?\n1.\tName\n2.\tSurname\n3.\tUsername\n4.\tPassword\n5.\tEmail\n6.\tPhone\n7.\tWeight\n8.\tLength\n9.\tFat percentage\n10.\tBloodtype");
 
+        String name = null;
+        String surname = null;
+        String username = null;
+        String password = null;
+        String email = null;
+        String phone = null;
+
         int editOption = scanner.nextInt(); scanner.nextLine();
         switch(editOption){
             case 1:
                 //Name
                 System.out.print("Name:\t\t");
-                String name = scanner.nextLine();
-                sporter.setName(name);
+                 name = scanner.nextLine();
                 break;
             case 2:
                 //Surname
                 System.out.print("Surname:\t");
-                String surname = scanner.nextLine();
-                sporter.setSurname(surname);
+                 surname = scanner.nextLine();
                 break;
             case 3:
                 //username
                 System.out.println("Username:\t");
-                String username = scanner.nextLine();
-                sporter.setUsername(username);
+                 username = scanner.nextLine();
                 break;
             case 4:
                 //Password
                 System.out.print("Password:\t");
-                String password = scanner.nextLine();
-                sporter.setPassword(password);
+                 password = scanner.nextLine();
                 break;
             case 5:
                 //Email
                 System.out.print("Email:\t\t");
-                String email = scanner.nextLine();
-                sporter.setEmail(email);
+                 email = scanner.nextLine();
                 break;
             case 6:
                 //phone
                 System.out.print("Phone:\t\t");
-                String phone = scanner.nextLine();
-                sporter.setPhone(phone);
+                 phone = scanner.nextLine();
                 break;
             case 7:
                 //Weight
@@ -359,6 +364,8 @@ public class SporterView {
                 break;
             default: break;
         }
+
+        sporter.edit(name, surname, username, password, email, phone);
 
         return sporter;
     }

@@ -14,9 +14,7 @@ public class SporterViewDemo {
     }
 
     public void showProfile(Sporter sporter){
-
-        System.out.println("--- Profile ---");
-        System.out.println(sporter.getName());
+        System.out.println(sporter.getProfileInfo());
         System.out.println("-- Goals --");
         for(Goal goal : sporter.getGoals()){
             showGoal(goal);
