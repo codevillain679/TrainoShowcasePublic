@@ -1,4 +1,4 @@
-package com.traino.datastoredemo;
+package datastoredemo;
 
 import com.traino.app.Tag;
 import com.traino.app.Goal;

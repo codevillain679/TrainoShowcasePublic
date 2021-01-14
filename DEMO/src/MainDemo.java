@@ -1,13 +1,12 @@
 import com.traino.app.*;
 import com.traino.app.admin.ScheduleAdmin;
 import com.traino.app.admin.SporterAdmin;
-import com.traino.datastoredemo.ScheduleStoreDemo;
-import com.traino.datastoredemo.SporterStoreDemo;
-import com.traino.viewdemo.ScheduleViewDemo;
-import com.traino.viewdemo.SporterViewDemo;
+import datastoredemo.ScheduleStoreDemo;
+import datastoredemo.SporterStoreDemo;
+import viewdemo.ScheduleViewDemo;
+import viewdemo.SporterViewDemo;
 
 import java.io.IOException;
-import java.util.List;
 
 public class MainDemo {
     public static void main(String[] args) {

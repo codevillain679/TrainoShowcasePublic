@@ -1,6 +1,6 @@
 import com.traino.app.*;
 import com.traino.app.admin.SporterAdmin;
-import com.traino.datastoredemo.SporterStoreDemo;
+import datastoredemo.SporterStoreDemo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

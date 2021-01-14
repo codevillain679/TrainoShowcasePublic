@@ -33,7 +33,7 @@ public class ScheduleView {
         return num;
     }
 
-    public Workout addWorkout(){
+    public Workout addWorkout(Workout suggestion){
         System.out.print("--- Add workout ---\nWorkout name:\t");
         String activity = scanner.nextLine();
         Weekday day = selectDay();
@@ -43,7 +43,24 @@ public class ScheduleView {
 
         System.out.println("You have to add at least one exercise");
 
-        String input = "y";
+        if(suggestion.getAllExercises().size() >= 1){
+            System.out.println("--- Suggestion ---");
+            for(Exercise exercise : suggestion.getAllExercises()){
+                System.out.println("-\t" + exercise);
+            }
+            System.out.println("Add suggestion to this workout? (Y/N)\t");
+            String input = scanner.nextLine();
+
+            if(input.toLowerCase().equals("y")){
+                for(Exercise exercise : suggestion.getAllExercises()){
+                    workout.addExercise(exercise);
+                }
+            }
+        }
+
+        System.out.println("Add another exercise? (Y/N)\t");
+
+        String input = scanner.nextLine();
 
         while(input.equals("y")){
             Exercise exercise = addExercise();

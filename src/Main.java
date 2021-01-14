@@ -138,7 +138,7 @@ public class Main {
 
                             Workout suggestion = (Workout) sporterAdmin.createSuggestion(selectedGoal2);
 
-                            Workout workout = sporterView.addWorkout(suggestion);
+                            Workout workout = scheduleView.addWorkout(suggestion);
 
                             sporterAdmin.addWorkout(workout, selectedGoal2);
 

@@ -131,45 +131,6 @@ public class SporterView {
         System.out.println();
     }
 
-    public Workout addWorkout(Workout suggestion){
-        System.out.print("--- Add workout ---\nWorkout name:\t");
-        String activity = scanner.nextLine();
-        Weekday day = selectDay();
-        Status status = Status.ACTIVE;
-
-        Workout workout = new Workout(0, activity, day, status);
-
-        System.out.println("You have to add at least one exercise");
-
-        if(suggestion.getAllExercises().size() >= 1){
-            System.out.println("--- Suggestion ---");
-            for(Exercise exercise : suggestion.getAllExercises()){
-                System.out.println("-\t" + exercise);
-            }
-            System.out.println("Add suggestion to this workout? (Y/N)\t");
-            String input = scanner.nextLine();
-
-            if(input.toLowerCase().equals("y")){
-                for(Exercise exercise : suggestion.getAllExercises()){
-                    workout.addExercise(exercise);
-                }
-            }
-        }
-
-        System.out.println("Add another exercise? (Y/N)\t");
-
-        String input = scanner.nextLine();
-
-        while(input.equals("y")){
-            Exercise exercise = addExercise();
-            workout.addExercise(exercise);
-            System.out.print("Add another exercise? (Y/N)\t");
-            input = scanner.nextLine().toLowerCase();
-        }
-
-        return workout;
-    }
-
     public Weekday selectDay(){
         System.out.println("--- Select day ---");
         int n = 1;
@@ -205,30 +166,6 @@ public class SporterView {
         }else{
             return -1;
         }
-    }
-
-    public Workout selectWorkout(List<Workout> allWorkouts){
-        Workout selectedWorkout = null;
-        int n = 1;
-        for(Workout workout : allWorkouts){
-            showWorkout(workout);
-        }
-        System.out.print("Enter choice:\t");
-        int selection = scanner.nextInt(); scanner.nextLine();
-
-        selectedWorkout = allWorkouts.get(selection - 1);
-
-        return selectedWorkout;
-    }
-
-    public void showWorkout(Workout workout){
-        System.out.println(workout.toString());
-
-        for(Exercise exercise : workout.getAllExercises()){
-            System.out.println("\t" + exercise.toString());
-        }
-
-        System.out.println();
     }
 
     public int selectLoginOption() {

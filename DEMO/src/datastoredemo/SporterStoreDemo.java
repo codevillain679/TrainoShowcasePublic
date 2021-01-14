@@ -1,7 +1,6 @@
-package com.traino.datastoredemo;
+package datastoredemo;
 
 import com.traino.app.*;
-import com.traino.app.interfaces.Schedulable;
 import com.traino.app.interfaces.SporterProvider;
 
 import java.util.ArrayList;
