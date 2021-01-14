@@ -1,12 +1,10 @@
 package com.traino.app.admin;
 
 import com.traino.app.*;
-import com.traino.app.interfaces.Schedulable;
 import com.traino.app.interfaces.SporterProvider;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SporterAdmin {
     private SporterProvider provider;
@@ -60,9 +58,9 @@ public class SporterAdmin {
         provider.addWorkoutExercise(workout, exercise);
     }
 
-    public List<Workout> getSuggestions(Goal goal) {
-        return provider.getSuggestions(goal);
-    }
+  //  public List<Workout> getSuggestions(Goal goal) {
+       // return provider.getSuggestions(goal);
+    //}
 
     public Sporter getLoggedInSporter() {
         return provider.getLoggedInSporter();
@@ -80,54 +78,38 @@ public class SporterAdmin {
         return provider.getAllGoals(sporter);
     }
 
-    public Schedulable createSuggestion(Goal goal) {
-        Workout suggestion = new Workout(0, null, null, null);
-        List<Exercise> allSuggestionExercises = new ArrayList<>();
+    public Workout createSuggestion(Goal goal) {
+
+        Workout suggestion = new Workout(0, "", Weekday.MONDAY, null);
 
         List<Exercise> allGoalExercises = provider.getAllExercises(goal);
 
         List<Workout> allGoalWorkouts = provider.getAllWorkouts(goal);
 
-        List<Exercise> scheduledExercises = new ArrayList<>();
+        List<Exercise> allWorkoutExercises = new ArrayList<>();
 
-        for (Exercise exercise : allGoalExercises) {
-            System.out.println(exercise.toString());
+
+        for(Workout workout : allGoalWorkouts){
+            allWorkoutExercises.addAll(provider.getAllExercises(workout));
         }
 
-        for (Workout workout : allGoalWorkouts) {
-            suggestion.setActivity(workout.getActivity());
-            suggestion.setDay(workout.getDay());
-            suggestion.setStatus(workout.getStatus());
-            List<Exercise> allWorkoutExercises = workout.getAllExercises();
-            scheduledExercises.addAll(allWorkoutExercises);
-
-            for (Exercise exercise : allGoalExercises) {
-                Exercise suggestion_exercise = new Exercise(0, exercise.getName(), exercise.getReps(), exercise.getSets(), exercise.getSymbol());
-
-                int diffReps = exercise.getReps();
-                int diffSets = exercise.getReps();
-                int diffTotal = exercise.getReps() * exercise.getSets();
-
-                for (Exercise scheduled : scheduledExercises) {
-                    if (scheduled.getSymbol().equals(suggestion_exercise.getSymbol())) {
-                        //calculate difference between goal exercise and scheduled
-                        diffReps -= scheduled.getReps();
-                        diffSets -= scheduled.getSets();
-                        diffTotal -= (scheduled.getReps() * scheduled.getSets());
-                    }
-                }
-
-                if (diffTotal > 0) {
-                    suggestion_exercise.setReps(diffReps);
-                    suggestion_exercise.setSets(diffSets);
-                    allSuggestionExercises.add(suggestion_exercise);
+        System.out.println("Goal exercises");
+        for(Exercise exercise : allGoalExercises) {
+            int sets = exercise.getSets();
+            int reps = exercise.getReps();
+            System.out.println(exercise.toString());
+            //calculate how many exercises relate to this goal
+            for(Exercise exercise1 : allWorkoutExercises){
+                if(exercise.getSymbol().equals(exercise1.getSymbol())){
+                    //same symbol
+                    sets -= exercise1.getSets();
+                    reps -= exercise1.getReps();
                 }
             }
-        }
 
-        if(allSuggestionExercises.size() > 0){
-            for(Exercise exercise : allSuggestionExercises){
-                suggestion.addExercise(exercise);
+            if(reps > 0 || sets > 0){
+                Exercise suggestedExercise = new Exercise(0, exercise.getName(), reps, sets, exercise.getSymbol());
+                suggestion.addExercise(suggestedExercise);
             }
         }
 

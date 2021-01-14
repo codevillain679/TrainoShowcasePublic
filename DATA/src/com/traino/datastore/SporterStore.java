@@ -284,31 +284,6 @@ public class SporterStore implements SporterProvider {
     }
 
     @Override
-    public List<Workout> getSuggestions(Goal goal) {
-        List<Exercise> allGoalExercises = getAllExercises(goal); //goal exercises (this is the number of required exercises for this goal)
-        List<Workout> allGoalWorkouts = getAllWorkouts(goal); //actual workouts for given goal
-
-        for(Exercise exercise : allGoalExercises){
-
-        }
-
-        System.out.println(allGoalExercises);
-
-        List<Workout> suggestions = new ArrayList<>();
-
-        Workout workout = new Workout(0, "Suggestion", Weekday.THURSDAY, Status.ACTIVE);
-
-        for(Exercise exercise : allGoalExercises){
-            Exercise suggestExercise = new Exercise(0,exercise.getName(), exercise.getReps() / 2, exercise.getSets() / 2, exercise.getSymbol());
-            workout.addExercise(suggestExercise);
-        }
-
-        suggestions.add(workout);
-
-        return suggestions;
-    }
-
-    @Override
     public Sporter getLoggedInSporter() {
         return authSporter;
     }

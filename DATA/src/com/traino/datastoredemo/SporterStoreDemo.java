@@ -119,7 +119,6 @@ public class SporterStoreDemo implements SporterProvider {
 
     }
 
-    @Override
     public List<Workout> getSuggestions(Goal goal) {
 
         //returns a workout with three exercises for this goal

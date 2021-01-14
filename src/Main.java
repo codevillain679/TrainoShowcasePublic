@@ -136,40 +136,21 @@ public class Main {
 
                             Goal selectedGoal2 = sporterView.selectGoal(allGoals3);
 
-                            List<Workout> suggestions = sporterAdmin.getSuggestions(selectedGoal2);
+                            Workout suggestion = sporterAdmin.createSuggestion(selectedGoal2);
 
-//                    Workout selectedWorkout = sporterView.selectWorkout(suggestions);
-//
-//                    //  sporterAdmin.addWorkout(selectedWorkout);
+                            Workout workout = sporterView.addWorkout(suggestion);
 
-                            Schedulable suggestion = sporterAdmin.createSuggestion(selectedGoal2);
+                            sporterAdmin.addWorkout(workout, selectedGoal2);
 
-                            System.out.println(suggestion.getScheduleInfo());
+                            List<Schedulable> schedule_new = new ArrayList<>();
 
-                            // --- end
+                            List<Goal> allGoals_new = sporterAdmin.getAllGoals(sporter);
 
+                            for(Goal goalitem_new : allGoals_new){
+                                schedule_new.addAll(goalitem_new.getScheduleItems());
+                            }
 
-                            //Retrieve goals from database
-                            List<Goal> allGoals2 = sporterAdmin.getAllGoals(sporter);
-
-                            Goal selectedGoal = sporterView.selectGoal(allGoals2);
-
-                            //SHOW SUGGESTION workouts for this goal
-
-                            //List<Workout> suggestions = sporterAdmin.getSuggestions(selectedGoal);
-
-
-
-                            // Create workout + add exercise(s)
-                            // Workout workout = scheduleView.addWorkout();
-
-                            // add scheduleitem to selected goal
-                           // selectedGoal.addScheduleItem(workout);
-
-                            // Add workout to database
-                            //sporterAdmin.addWorkout(workout, selectedGoal);
-
-                            scheduleView.showSchedule(schedule);
+                            scheduleView.showSchedule(schedule_new);
                             break;
                         case 2:
                             //edit workout
@@ -195,20 +176,6 @@ public class Main {
                         sporterView.viewProfile(sporter);
                     }
                     break;
-                case 9: //GET SUGGESTIONS
-                    List<Goal> allGoals3 = sporterAdmin.getAllGoals(sporter);
-
-                    Goal selectedGoal2 = sporterView.selectGoal(allGoals3);
-
-                    List<Workout> suggestions = sporterAdmin.getSuggestions(selectedGoal2);
-
-//                    Workout selectedWorkout = sporterView.selectWorkout(suggestions);
-//
-//                    //  sporterAdmin.addWorkout(selectedWorkout);
-
-                    Schedulable suggestion = sporterAdmin.createSuggestion(selectedGoal2);
-
-                    System.out.println(suggestion.getScheduleInfo());
             }
             menuOption = sporterView.selectMenuOption();
         }

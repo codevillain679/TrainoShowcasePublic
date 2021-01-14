@@ -40,18 +40,18 @@ public class MainDemo {
                     sporterAdmin.addGoalExercise(goal2, exercise2);
                     break;
                 case 3: //Add workout
-                    Goal goal3 = sporterViewDemo.selectGoal(sporterAdmin.getAllGoals());
-                    sporterViewDemo.showGoal(goal3);
-                    List<Workout> suggestions = sporterAdmin.getSuggestions(goal3);
-                    Workout suggested = sporterViewDemo.showSuggestions(suggestions);
-                    if(suggested != null){
-                        //sporterAdmin.addWorkout(goal3, suggested);
-                        scheduleAdmin.addScheduleItem(suggested);
-                    }else {
-                        Workout workout = sporterViewDemo.addWorkout();
-                        //sporterAdmin.addWorkout(goal3, suggested);
-                        scheduleAdmin.addScheduleItem(workout);
-                    }
+//                    Goal goal3 = sporterViewDemo.selectGoal(sporterAdmin.getAllGoals());
+//                    sporterViewDemo.showGoal(goal3);
+//                    //List<Workout> suggestions = sporterAdmin.getSuggestions(goal3);
+//                    //Workout suggested = sporterViewDemo.showSuggestions(suggestions);
+//                    if(suggested != null){
+//                        //sporterAdmin.addWorkout(goal3, suggested);
+//                        scheduleAdmin.addScheduleItem(suggested);
+//                    }else {
+//                        Workout workout = sporterViewDemo.addWorkout();
+//                        //sporterAdmin.addWorkout(goal3, suggested);
+//                        scheduleAdmin.addScheduleItem(workout);
+//                    }
                     //display schedule
                     try {
                         scheduleViewDemo.showSchedule(scheduleAdmin.getAllScheduleItems());
