@@ -80,7 +80,7 @@ public class SporterAdmin {
 
     public Workout createSuggestion(Goal goal) {
 
-        Workout suggestion = new Workout(0, "", Weekday.MONDAY, null);
+        Workout suggestion = new Workout(0, null, null, null); //this workout is used to temporarily store the exercises and doesn't have activity, day or status information
 
         List<Exercise> allGoalExercises = provider.getAllExercises(goal);
 
@@ -88,12 +88,10 @@ public class SporterAdmin {
 
         List<Exercise> allWorkoutExercises = new ArrayList<>();
 
-
         for(Workout workout : allGoalWorkouts){
             allWorkoutExercises.addAll(provider.getAllExercises(workout));
         }
 
-        System.out.println("Goal exercises");
         for(Exercise exercise : allGoalExercises) {
             int sets = exercise.getSets();
             int reps = exercise.getReps();
