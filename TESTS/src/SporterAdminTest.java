@@ -1,5 +1,6 @@
 import com.traino.app.*;
 import com.traino.app.admin.SporterAdmin;
+import com.traino.datastore.SporterStore;
 import datastoredemo.SporterStoreDemo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -171,18 +172,33 @@ class SporterAdminTest {
     void getSuggestions() {
         //Assign
         sporterAdmin.addGoal(goal);
-        sporterAdmin.addWorkout(workout, null);
+        sporterAdmin.addWorkout(workout, goal);
         sporterAdmin.addWorkoutExercise(workout, exercise);
 
         //Act
-        List<Workout> suggestions = sporterAdmin.getSuggestions(goal);
+        Workout suggestion = (Workout) sporterAdmin.createSuggestion(goal);
 
-        Workout workout = suggestions.get(0);
-        Exercise exercise2 = workout.getAllExercises().get(0);
+        Exercise exercise2 = suggestion.getAllExercises().get(0);
 
         //Assert
-        assertEquals(exercise2, suggestions.get(0).getAllExercises().get(0));
+        assertEquals(exercise2, suggestion.getAllExercises().get(0));
     }
 
+    @Test
+    void connectToSporterStoreWithDatabase(){
+        SporterStore dataStore = new SporterStore();
 
+        SporterAdmin sporterAdmin = new SporterAdmin(dataStore);
+
+        sporterAdmin.login(new LoginBean("nkorporaal", "traino213"));
+    }
+
+    @Test
+    void connectToSporterStoreWithoutDatabase(){
+        SporterStoreDemo sporterStoreDemo = new SporterStoreDemo();
+
+        SporterAdmin sporterAdmin = new SporterAdmin(sporterStoreDemo);
+
+        sporterAdmin.login(new LoginBean("nkorporaal", "traino213"));
+    }
 }

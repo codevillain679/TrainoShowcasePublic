@@ -85,7 +85,7 @@ public class SporterStoreDemo implements SporterProvider {
         return workouts;
     }
 
-    @Override
+    //@Override
     public List<Workout> getAllWorkouts(Sporter sporter) {
         return null;
     }
@@ -148,17 +148,15 @@ public class SporterStoreDemo implements SporterProvider {
     }
 
     @Override
-    public List<Goal> getAllGoals(Sporter sporter) {
-        return null;
-    }
+    public List<Goal> getAllGoals(Sporter sporter) { return null; }
 
     @Override
     public List<Exercise> getAllExercises(Goal goal) {
-        return null;
+        return goal.getAllExercises();
     }
 
     @Override
     public List<Workout> getAllWorkouts(Goal goal) {
-        return null;
+        return workouts;
     }
 }
